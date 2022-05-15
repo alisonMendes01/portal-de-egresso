@@ -7,23 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.ufma.portal.entidades.Contato;
-import br.ufma.portal.repository.ContatoRepo;
+import br.ufma.portal.entidades.Curso;
+import br.ufma.portal.repository.CursoRepo;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class TesteContato {
+public class TesteCurso {
     @Autowired
     public
-    ContatoRepo repo;
+    CursoRepo repo;
 
     @Test
-    public void devecriaContato(){
+    public void devecriaCurso(){
         //cenario
-        Contato novo = Contato.builder().nome("teste").url_logo("urlaqui").build();
+        Curso novo = Curso.builder().nome("teste").nivel("avançado").build();
 
         // acao
-        Contato retorno = repo.save(novo);
+        Curso retorno = repo.save(novo);
         // verificacao
         Assertions.assertNotNull(retorno);
         Assertions.assertEquals(novo.getNome(), retorno.getNome()); 

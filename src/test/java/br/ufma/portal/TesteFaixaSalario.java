@@ -7,26 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.ufma.portal.entidades.Contato;
-import br.ufma.portal.repository.ContatoRepo;
+import br.ufma.portal.entidades.FaixaSalario;
+import br.ufma.portal.repository.FaixaSalarioRepo;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class TesteContato {
+public class TesteFaixaSalario {
     @Autowired
     public
-    ContatoRepo repo;
+    FaixaSalarioRepo repo;
 
     @Test
-    public void devecriaContato(){
+    public void devecriaFaixaSalario(){
         //cenario
-        Contato novo = Contato.builder().nome("teste").url_logo("urlaqui").build();
+        FaixaSalario novo = FaixaSalario.builder().descricao("descricao").build();
 
         // acao
-        Contato retorno = repo.save(novo);
+        FaixaSalario retorno = repo.save(novo);
         // verificacao
         Assertions.assertNotNull(retorno);
-        Assertions.assertEquals(novo.getNome(), retorno.getNome()); 
 
     }
 }

@@ -6,4 +6,5 @@ import br.ufma.portal.entidades.Contato;
 
 @Repository
 public interface ContatoRepo extends JpaRepository<Contato, Integer>{
+
 }
