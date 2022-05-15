@@ -27,7 +27,7 @@ public class Egresso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_egresso")
-    private Integer id_curso;
+    private Integer id_egresso;
     
     @OneToMany(mappedBy ="contato_id")
     private List<ContatoEgresso> contatosEgresso;

@@ -1,11 +1,9 @@
 package br.ufma.portal.entidades;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
-import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -18,19 +16,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-@Embeddable
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-
-class CursoEgressoPk implements Serializable {  
-    @Column(name= "id_egresso")  
-    private Integer id_egresso;
-    
-    @Column(name = "id_curso")
-    private Integer id_curso;
-}
 
 @Entity
 @Data
@@ -51,7 +36,7 @@ public class CursoEgresso {
     @ManyToOne
     @MapsId("id_curso")
     @JoinColumn(name = "curso_id")
-    private Contato curso_id;
+    private Curso curso_id;
     
     @Column(name = "data_inicio")   
     @Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
