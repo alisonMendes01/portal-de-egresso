@@ -1,4 +1,4 @@
-package br.ufma.portal.testeEntidade;
+package br.ufma.portal.entidade;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,57 +10,60 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.ufma.portal.entidades.Contato;
-import br.ufma.portal.repository.ContatoRepo;
+import br.ufma.portal.entidades.Curso;
+import br.ufma.portal.repository.CursoRepo;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class TesteContato {
+public class TesteCurso {
     @Autowired
     public
-    ContatoRepo repo;
+    CursoRepo repo;
 
     @Test
-    public void devecriaContato(){
+    public void devecriaCurso(){
         //cenario
-        Contato novo = Contato.builder().nome("CriarContato").url_logo("urlaqui").build();
-
+        Curso novo = Curso.builder().nome("CriarCurso").nivel("avançado").build();
+        
         // acao
-        Contato retorno = repo.save(novo);
+        Curso retorno = repo.save(novo);
+        
         // verificacao
         Assertions.assertNotNull(retorno);
         Assertions.assertEquals(novo.getNome(), retorno.getNome());
+        Assertions.assertEquals(novo.getNivel(), retorno.getNivel());
         
         //Rollback
         repo.delete(retorno);
+
     }
     
     @Test
-    public void deveremoverContato(){
+    public void deveremoverCurso(){
         //cenario
-        Contato novo = Contato.builder().nome("RemoverContato").url_logo("urlaqui").build();
-        Contato retorno = repo.save(novo);
+        Curso novo = Curso.builder().nome("RemoverCurso").nivel("avançado").build();
+        Curso retorno = repo.save(novo);
         
         // acao
-        Integer id = retorno.getId_contato();
+        Integer id = retorno.getId_curso();
         repo.deleteById(id);
         
         //verificação
-        Optional<Contato> temp = repo.findById(id);  
+        Optional<Curso> temp = repo.findById(id);  
         Assertions.assertFalse(temp.isPresent());
 
     }
     
     @Test
-    public void deveobterContato(){
+    public void deveobterCurso(){
         //cenario
-        Contato novo = Contato.builder().nome("ObterCOntato").url_logo("urlaqui").build();
-        Contato retorno = repo.save(novo);
+        Curso novo = Curso.builder().nome("ObterCurso").nivel("avançado").build();
+        Curso retorno = repo.save(novo);
 
         // acao
-        Optional<Contato> temp = repo.findById(retorno.getId_contato());
+        Optional<Curso> temp = repo.findById(retorno.getId_curso());
+        
         // verificacao
-
         Assertions.assertTrue(temp.isPresent());
 
         //Rollback

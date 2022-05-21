@@ -1,4 +1,4 @@
-package br.ufma.portal.testeEntidade;
+package br.ufma.portal.entidade;
 
 import org.junit.jupiter.api.Test;
 
