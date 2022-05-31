@@ -12,14 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.ufma.portal.entidades.Cargo;
-import br.ufma.portal.entidades.Egresso;
-import br.ufma.portal.entidades.FaixaSalario;
-import br.ufma.portal.entidades.ProfessorEgresso;
-import br.ufma.portal.repository.CargoRepo;
-import br.ufma.portal.repository.EgressoRepo;
-import br.ufma.portal.repository.FaixaSalarioRepo;
-import br.ufma.portal.repository.ProfessorEgressoRepo;
+
+import br.ufma.portal.entidade.repository.CargoRepo;
+import br.ufma.portal.entidade.repository.EgressoRepo;
+import br.ufma.portal.entidade.repository.FaixaSalarioRepo;
+import br.ufma.portal.entidade.repository.ProfessorEgressoRepo;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest

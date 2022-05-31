@@ -1,4 +1,4 @@
-package br.ufma.portal.entidades;
+package br.ufma.portal.entidade;
 
 import java.util.List;
 
@@ -18,24 +18,23 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 
-@Table(name = "curso")
-public class Curso {
+@Table(name = "contato")
+public class Contato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_curso")
-    private Integer id_curso;
+    @Column(name = "id_contato")
+    private Integer id_contato;
     
-    @OneToMany(mappedBy= "curso_id")
-    private List<CursoEgresso> cursoEgressos;
-    
-    @Column(name="nome")
+    @OneToMany(mappedBy = "egresso_id")
+    private List<ContatoEgresso> contatosEgressos;
+
+    @Column(name= "nome")
     private String nome;
     
-    @Column(name="nivel")
-    private String nivel;
-
+    @Column(name= "url_logo")
+    private String url_logo;
 }
-
+// funcionou até agora

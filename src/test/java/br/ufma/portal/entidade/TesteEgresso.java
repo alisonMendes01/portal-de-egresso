@@ -10,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.ufma.portal.entidades.Egresso;
-import br.ufma.portal.repository.EgressoRepo;
+import br.ufma.portal.entidade.repository.EgressoRepo;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest

@@ -1,4 +1,4 @@
-package br.ufma.portal.entidades;
+package br.ufma.portal.entidade;
 
 import java.time.LocalDate;
 
@@ -12,7 +12,7 @@ import javax.persistence.MapsId;
 
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
-import br.ufma.portal.entidades.CursoEgressoPk.CursoEgressoPkBuilder;
+import br.ufma.portal.entidade.CursoEgressoPk.CursoEgressoPkBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

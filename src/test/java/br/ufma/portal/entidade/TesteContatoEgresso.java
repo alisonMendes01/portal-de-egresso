@@ -10,15 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.ufma.portal.entidades.Contato;
-import br.ufma.portal.entidades.ContatoEgresso;
-import br.ufma.portal.entidades.ContatoEgressoPk;
 
-import br.ufma.portal.entidades.Egresso;
-import br.ufma.portal.repository.ContatoEgressoRepo;
-import br.ufma.portal.repository.ContatoRepo;
-
-import br.ufma.portal.repository.EgressoRepo;
+import br.ufma.portal.entidade.repository.ContatoEgressoRepo;
+import br.ufma.portal.entidade.repository.ContatoRepo;
+import br.ufma.portal.entidade.repository.EgressoRepo;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -27,11 +22,11 @@ public class TesteContatoEgresso {
     @Autowired
     public
     ContatoEgressoRepo repoContatoEgresso;
-    
+  
     @Autowired
     public
     EgressoRepo repoEgresso;
-    
+  
     @Autowired
     public
     ContatoRepo repoContato;
@@ -108,5 +103,5 @@ public class TesteContatoEgresso {
         //Rollback
         repoContatoEgresso.delete(retornoContatoEgresso);
     }
-    
+  
 }

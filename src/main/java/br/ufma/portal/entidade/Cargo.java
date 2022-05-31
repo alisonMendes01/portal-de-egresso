@@ -1,4 +1,4 @@
-package br.ufma.portal.entidades;
+package br.ufma.portal.entidade;
 
 import java.util.List;
 

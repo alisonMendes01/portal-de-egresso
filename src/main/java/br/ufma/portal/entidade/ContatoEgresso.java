@@ -1,4 +1,4 @@
-package br.ufma.portal.entidades;
+package br.ufma.portal.entidade;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -7,11 +7,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
+import br.ufma.portal.entidade.ContatoEgressoPk.ContatoEgressoPkBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import br.ufma.portal.entidades.ContatoEgressoPk.ContatoEgressoPkBuilder;
 
 @Entity
 @Data

@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.ufma.portal.entidades.FaixaSalario;
-import br.ufma.portal.repository.FaixaSalarioRepo;
+
+import br.ufma.portal.entidade.repository.FaixaSalarioRepo;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
