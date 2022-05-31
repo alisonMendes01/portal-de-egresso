@@ -36,7 +36,7 @@ public class Egresso {
     private List<Depoimento> depoimentos;
 
     @OneToMany(mappedBy = "egresso_id")
-    private List<ProfessorEgresso> professorEgresso;
+    private List<ProfEgresso> profEgresso;
 
     @Column(name="nome")
     private String nome;

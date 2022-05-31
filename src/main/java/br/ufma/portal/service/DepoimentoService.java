@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.ufma.portal.entidade.Depoimento;
+import br.ufma.portal.entidade.dto.EgressoDepoimentoDto;
 import br.ufma.portal.entidade.repository.DepoimentoRepo;
 import br.ufma.portal.service.exception.RegraNegocioRunTime;
 
@@ -28,10 +29,10 @@ public class DepoimentoService {
             throw new RegraNegocioRunTime("O depoimento não pode ser nulo!");
             
         if ((depoimento.getTexto() == null) || (depoimento.getTexto().equals("")))
-            throw new RegraNegocioRunTime("Deve haver um texto " + depoimento.getTexto());
+            throw new RegraNegocioRunTime("Deve haver um texto");
 
         if ((depoimento.getData() == null) || (depoimento.getData().isAfter(LocalDate.now())))
-            throw new RegraNegocioRunTime("A data não pode ser nula e precisa ser válida ");
+            throw new RegraNegocioRunTime("A data não pode ser nula e precisa ser válida");
     }
 
     public void verificaId(Depoimento depoimento) {
@@ -51,7 +52,7 @@ public class DepoimentoService {
     */
     @Transactional
     public List<Depoimento> buscarRecente() {
-        return repo.findAllByOrderByData();
+        return repo.findAllByOrderByDataDesc();
     }
 
     //repository.findAll(Sort.by(Sort.Direction.DESC, "colName"));
@@ -75,10 +76,14 @@ public class DepoimentoService {
         verificaDepoimento(depoimento);
         repo.delete(depoimento);
     }
+    
     @Transactional
     public void remover(Integer id) {
         Optional<Depoimento> depoimento = repo.findById(id);
         remover(depoimento.get());
     }
-
+    @Transactional
+    public List<EgressoDepoimentoDto> BuscarporEgresso(Integer id){
+        return repo.obterDepoimentoPorEgresso(id);
+    }
 }

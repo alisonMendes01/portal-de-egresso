@@ -16,14 +16,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import br.ufma.portal.entidade.repository.CargoRepo;
 import br.ufma.portal.entidade.repository.EgressoRepo;
 import br.ufma.portal.entidade.repository.FaixaSalarioRepo;
-import br.ufma.portal.entidade.repository.ProfessorEgressoRepo;
+import br.ufma.portal.entidade.repository.ProfEgressoRepo;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class TesteProfessorEgresso {
+public class TesteProfEgresso {
     @Autowired
     public
-    ProfessorEgressoRepo repoProfessorEgresso;
+    ProfEgressoRepo repoProfEgresso;
     
     @Autowired
     public
@@ -39,11 +39,11 @@ public class TesteProfessorEgresso {
 
 
     @Test
-    public void devecriaProfessorEgresso(){
+    public void devecriaProfEgresso(){
         //cenario
         
         //Egresso
-        Egresso novoEgresso = Egresso.builder().nome("EgressoDeProfessorEgresso").email("email@email.com").cpf("000").resumo("resumo").url_foto("urlaqui").build();
+        Egresso novoEgresso = Egresso.builder().nome("EgressoDeProfEgresso").email("email@email.com").cpf("000").resumo("resumo").url_foto("urlaqui").build();
         Egresso retornoEgresso = repoEgresso.save(novoEgresso);
         
         //Cargo
@@ -55,17 +55,17 @@ public class TesteProfessorEgresso {
         FaixaSalario novoFaixaSalario = FaixaSalario.builder().descricao("descricao").build();
         FaixaSalario retornoFaixaSalario  = repoFaixaSalario.save(novoFaixaSalario);
         
-        //Professor
-        ProfessorEgresso novoProfessorEgresso = ProfessorEgresso.builder().empresa("UFMA").descricao("texto").data_registro(LocalDate.of(2022,Month.MAY, 15)).egresso_id(retornoEgresso).cargo_id(retornoCargo).faixa_salario_id(retornoFaixaSalario).build();
+        //Prof
+        ProfEgresso novoProfEgresso = ProfEgresso.builder().empresa("UFMA").descricao("texto").data_registro(LocalDate.of(2022,Month.MAY, 15)).egresso_id(retornoEgresso).cargo_id(retornoCargo).faixa_salario_id(retornoFaixaSalario).build();
         
         // acao
-        ProfessorEgresso retornoProfessorEgresso = repoProfessorEgresso.save(novoProfessorEgresso);
+        ProfEgresso retornoProfEgresso = repoProfEgresso.save(novoProfEgresso);
 
         // verificacao
-        Assertions.assertNotNull(retornoProfessorEgresso);
+        Assertions.assertNotNull(retornoProfEgresso);
         
         //Rollback
-        repoProfessorEgresso.delete(retornoProfessorEgresso);
+        repoProfEgresso.delete(retornoProfEgresso);
         repoCargo.delete(retornoCargo);
         repoFaixaSalario.delete(retornoFaixaSalario);
         repoEgresso.delete(retornoEgresso);
@@ -73,11 +73,11 @@ public class TesteProfessorEgresso {
     }
 
     @Test
-    public void deveremoverProfessorEgresso(){
+    public void deveremoverProfEgresso(){
         //cenario
         
         //Egresso
-        Egresso novoEgresso = Egresso.builder().nome("EgressoDeProfessorEgresso").email("email@email.com").cpf("000").resumo("resumo").url_foto("urlaqui").build();
+        Egresso novoEgresso = Egresso.builder().nome("EgressoDeProfEgresso").email("email@email.com").cpf("000").resumo("resumo").url_foto("urlaqui").build();
         Egresso retornoEgresso = repoEgresso.save(novoEgresso);
         
         //Cargo
@@ -89,31 +89,31 @@ public class TesteProfessorEgresso {
         FaixaSalario novoFaixaSalario = FaixaSalario.builder().descricao("descricao").build();
         FaixaSalario retornoFaixaSalario  = repoFaixaSalario.save(novoFaixaSalario);
         
-        //Professor
-        ProfessorEgresso novoProfessorEgresso = ProfessorEgresso.builder().empresa("UFMA").descricao("texto").data_registro(LocalDate.of(2022,Month.MAY, 15)).egresso_id(retornoEgresso).cargo_id(retornoCargo).faixa_salario_id(retornoFaixaSalario).build();
-        ProfessorEgresso retornoProfessorEgresso = repoProfessorEgresso.save(novoProfessorEgresso);
+        //Prof
+        ProfEgresso novoProfEgresso = ProfEgresso.builder().empresa("UFMA").descricao("texto").data_registro(LocalDate.of(2022,Month.MAY, 15)).egresso_id(retornoEgresso).cargo_id(retornoCargo).faixa_salario_id(retornoFaixaSalario).build();
+        ProfEgresso retornoProfEgresso = repoProfEgresso.save(novoProfEgresso);
 
         // acao
-        Integer id = retornoProfessorEgresso.getId_prof_egresso();
-        repoProfessorEgresso.deleteById(id);
+        Integer id = retornoProfEgresso.getId_prof_egresso();
+        repoProfEgresso.deleteById(id);
 
         // verificacao
-        Optional<ProfessorEgresso> temp = repoProfessorEgresso.findById(id);  
+        Optional<ProfEgresso> temp = repoProfEgresso.findById(id);  
         Assertions.assertFalse(temp.isPresent());
         
         //Rollback
-        repoProfessorEgresso.delete(retornoProfessorEgresso);
+        repoProfEgresso.delete(retornoProfEgresso);
         repoCargo.delete(retornoCargo);
         repoFaixaSalario.delete(retornoFaixaSalario);
         repoEgresso.delete(retornoEgresso);
     }
 
     @Test
-    public void deveobterProfessorEgresso(){
+    public void deveobterProfEgresso(){
         //cenario
         
         //Egresso
-        Egresso novoEgresso = Egresso.builder().nome("EgressoDeProfessorEgresso").email("email@email.com").cpf("000").resumo("resumo").url_foto("urlaqui").build();
+        Egresso novoEgresso = Egresso.builder().nome("EgressoDeProfEgresso").email("email@email.com").cpf("000").resumo("resumo").url_foto("urlaqui").build();
         Egresso retornoEgresso = repoEgresso.save(novoEgresso);
         
         //Cargo
@@ -125,18 +125,18 @@ public class TesteProfessorEgresso {
         FaixaSalario novoFaixaSalario = FaixaSalario.builder().descricao("descricao").build();
         FaixaSalario retornoFaixaSalario  = repoFaixaSalario.save(novoFaixaSalario);
         
-        //Professor
-        ProfessorEgresso novoProfessorEgresso = ProfessorEgresso.builder().empresa("UFMA").descricao("texto").data_registro(LocalDate.of(2022,Month.MAY, 15)).egresso_id(retornoEgresso).cargo_id(retornoCargo).faixa_salario_id(retornoFaixaSalario).build();
-        ProfessorEgresso retornoProfessorEgresso = repoProfessorEgresso.save(novoProfessorEgresso);
+        //Prof
+        ProfEgresso novoProfEgresso = ProfEgresso.builder().empresa("UFMA").descricao("texto").data_registro(LocalDate.of(2022,Month.MAY, 15)).egresso_id(retornoEgresso).cargo_id(retornoCargo).faixa_salario_id(retornoFaixaSalario).build();
+        ProfEgresso retornoProfEgresso = repoProfEgresso.save(novoProfEgresso);
 
         // acao
-        Optional<ProfessorEgresso> temp = repoProfessorEgresso.findById(retornoProfessorEgresso.getId_prof_egresso());
+        Optional<ProfEgresso> temp = repoProfEgresso.findById(retornoProfEgresso.getId_prof_egresso());
     
         // verificacao
         Assertions.assertTrue(temp.isPresent());
         
         //Rollback
-        repoProfessorEgresso.delete(retornoProfessorEgresso);
+        repoProfEgresso.delete(retornoProfEgresso);
         repoCargo.delete(retornoCargo);
         repoFaixaSalario.delete(retornoFaixaSalario);
         repoEgresso.delete(retornoEgresso);
