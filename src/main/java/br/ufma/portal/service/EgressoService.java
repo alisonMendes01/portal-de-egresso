@@ -72,12 +72,6 @@ public class EgressoService {
         if ((egresso.getResumo() == null) || (egresso.getResumo().equals("")))
             throw new RegraNegocioRunTime("O egresso deve ter um nome!");
 
-        /*
-         * if ((egresso.getContatosEgresso() == null) ||
-         * (egresso.getContatosEgresso().isEmpty()))
-         * throw new RegraNegocioRunTime("O egresso deve ter um contato!");
-         */
-
     }
 
     public void verificaId(Egresso egresso) {

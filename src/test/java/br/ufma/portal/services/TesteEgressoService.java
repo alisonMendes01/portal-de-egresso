@@ -99,8 +99,7 @@ public class TesteEgressoService {
                 .build();
         // ação
         service.editarEgressoContato(retornoEgresso.getId_egresso(), retornoContato.getId_contato(), atualizarContato);
-        // verificacao
-        // Assertions.assertNotEquals(retornoEgresso.getNome(), retorno.getNome());
+        
 
     }
 
