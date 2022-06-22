@@ -114,7 +114,7 @@ public class TesteEgressoService {
                 .build();
         Egresso retornoEgresso = repoEgresso.save(novo);
 
-        Curso novoCurso = Curso.builder().nome("Calvo").nivel("Superior").build();
+        Curso novoCurso = Curso.builder().nome("curso").nivel("Superior").build();
         Curso retornoCurso = repoCurso.save(novoCurso);
 
         CursoEgresso ce = CursoEgresso.builder().data_conclusao(LocalDate.of(2022, Month.MAY, 15)).data_inicio(LocalDate.of(2022, Month.MAY, 15)).build();
@@ -135,7 +135,7 @@ public class TesteEgressoService {
         Egresso retornoEgresso = repoEgresso.save(novo);
         
         FaixaSalario novoFaixaSalario = FaixaSalario.builder()
-            .descricao("20 pau")
+            .descricao("20 reais")
             .build();
         FaixaSalario retornoFaixaSalario = repoFaixaSalario.save(novoFaixaSalario);
 
@@ -181,7 +181,7 @@ public class TesteEgressoService {
 
 
         FaixaSalario novoFaixaSalario = FaixaSalario.builder()
-            .descricao("20 pau")
+            .descricao("20 reais")
             .build();
         FaixaSalario retornoFaixaSalario = repoFaixaSalario.save(novoFaixaSalario);
 

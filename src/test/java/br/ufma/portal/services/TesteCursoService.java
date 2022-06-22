@@ -47,7 +47,7 @@ public class TesteCursoService {
     @Test
     public void deveObterEgressoPorCurso() {
         Egresso egresso1 = Egresso.builder()
-                .nome("Seoku Nareta")
+                .nome("Maria")
                 .email("email@email.com")
                 .cpf("000")
                 .resumo("resumo")
@@ -56,7 +56,7 @@ public class TesteCursoService {
         Egresso retornoEgresso1 = repoEgresso.save(egresso1);
 
         Egresso egresso2 = Egresso.builder()
-                .nome("Sujiru Kimimame")
+                .nome("Pedro")
                 .email("email@email.com")
                 .cpf("000")
                 .resumo("resumo")
@@ -65,7 +65,7 @@ public class TesteCursoService {
         Egresso retornoEgresso2 = repoEgresso.save(egresso2);
 
         Egresso egresso3 = Egresso.builder()
-                .nome("Seu Kumiama")
+                .nome("Jose")
                 .email("email@email.com")
                 .cpf("000")
                 .resumo("resumo")
@@ -74,14 +74,14 @@ public class TesteCursoService {
         Egresso retornoEgresso3 = repoEgresso.save(egresso3);
 
         Curso curso1 = Curso.builder()
-                .nome("micropenis")
+                .nome("microllins")
                 .nivel("avançado")
                 // .cursoEgressos()
                 .build();
         Curso retornoCurso1 = repoCurso.save(curso1);
 
         Curso curso2 = Curso.builder()
-                .nome("micropenis")
+                .nome("microllins")
                 .nivel("avançado")
                 // .cursoEgressos()
                 .build();
@@ -122,7 +122,7 @@ public class TesteCursoService {
     @Test
     public void deveObterNumeroEgressosByCurso() {
         Egresso egresso1 = Egresso.builder()
-                .nome("Seoku Nareta")
+                .nome("Maria")
                 .email("email@email.com")
                 .cpf("000")
                 .resumo("resumo")
@@ -131,7 +131,7 @@ public class TesteCursoService {
         Egresso retornoEgresso1 = repoEgresso.save(egresso1);
 
         Egresso egresso2 = Egresso.builder()
-                .nome("Sujiru Kimimame")
+                .nome("Pedro")
                 .email("email@email.com")
                 .cpf("000")
                 .resumo("resumo")
@@ -140,7 +140,7 @@ public class TesteCursoService {
         Egresso retornoEgresso2 = repoEgresso.save(egresso2);
 
         Egresso egresso3 = Egresso.builder()
-                .nome("Seu Kumiama")
+                .nome("Jose")
                 .email("email@email.com")
                 .cpf("000")
                 .resumo("resumo")
@@ -149,14 +149,14 @@ public class TesteCursoService {
         Egresso retornoEgresso3 = repoEgresso.save(egresso3);
 
         Curso curso1 = Curso.builder()
-                .nome("micropenis")
+                .nome("microllins")
                 .nivel("avançado")
                 // .cursoEgressos()
                 .build();
         Curso retornoCurso1 = repoCurso.save(curso1);
 
         Curso curso2 = Curso.builder()
-                .nome("micropenis")
+                .nome("microllins")
                 .nivel("avançado")
                 // .cursoEgressos()
                 .build();
