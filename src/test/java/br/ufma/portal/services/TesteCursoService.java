@@ -76,14 +76,12 @@ public class TesteCursoService {
         Curso curso1 = Curso.builder()
                 .nome("microllins")
                 .nivel("avançado")
-                // .cursoEgressos()
                 .build();
         Curso retornoCurso1 = repoCurso.save(curso1);
 
         Curso curso2 = Curso.builder()
                 .nome("microllins")
                 .nivel("avançado")
-                // .cursoEgressos()
                 .build();
         Curso retornoCurso2 = repoCurso.save(curso2);
 
@@ -151,14 +149,12 @@ public class TesteCursoService {
         Curso curso1 = Curso.builder()
                 .nome("microllins")
                 .nivel("avançado")
-                // .cursoEgressos()
                 .build();
         Curso retornoCurso1 = repoCurso.save(curso1);
 
         Curso curso2 = Curso.builder()
                 .nome("microllins")
                 .nivel("avançado")
-                // .cursoEgressos()
                 .build();
         Curso retornoCurso2 = repoCurso.save(curso2);
 
