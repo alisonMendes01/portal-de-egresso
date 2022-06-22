@@ -13,9 +13,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.ufma.portal.entidade.Depoimento;
-import br.ufma.portal.entidade.dto.EgressoDepoimentoDto;
-import br.ufma.portal.entidade.repository.DepoimentoRepo;
+import br.ufma.portal.model.Depoimento;
+import br.ufma.portal.model.dto.EgressoDepoimentoDto;
+import br.ufma.portal.model.repository.DepoimentoRepo;
 import br.ufma.portal.service.exception.RegraNegocioRunTime;
 
 @Service
