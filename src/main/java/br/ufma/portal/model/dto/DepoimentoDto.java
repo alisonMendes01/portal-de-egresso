@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class EgressoDepoimentoDto {
+public class DepoimentoDto {
     private Integer id;
     private String texto;
     private LocalDate data;

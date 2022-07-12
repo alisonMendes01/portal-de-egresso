@@ -27,6 +27,7 @@ import br.ufma.portal.model.repository.ProfEgressoRepo;
 import br.ufma.portal.service.EgressoService;
 
 @SpringBootTest
+@SuppressWarnings("unused")
 public class TesteEgressoService {
 
     @Autowired

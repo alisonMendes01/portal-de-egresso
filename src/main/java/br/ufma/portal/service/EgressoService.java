@@ -13,20 +13,18 @@ import org.springframework.stereotype.Service;
 
 import br.ufma.portal.model.Cargo;
 import br.ufma.portal.model.Contato;
-import br.ufma.portal.model.Curso;
 import br.ufma.portal.model.CursoEgresso;
 import br.ufma.portal.model.CursoEgressoPk;
 import br.ufma.portal.model.Egresso;
-import br.ufma.portal.model.ProfEgresso;
 import br.ufma.portal.model.FaixaSalario;
 import br.ufma.portal.model.repository.CargoRepo;
-import br.ufma.portal.model.repository.ProfEgressoRepo;
 import br.ufma.portal.model.repository.ContatoEgressoRepo;
 import br.ufma.portal.model.repository.ContatoRepo;
 import br.ufma.portal.model.repository.CursoEgressoRepo;
 import br.ufma.portal.model.repository.CursoRepo;
 import br.ufma.portal.model.repository.EgressoRepo;
 import br.ufma.portal.model.repository.FaixaSalarioRepo;
+import br.ufma.portal.model.repository.ProfEgressoRepo;
 import br.ufma.portal.service.exception.RegraNegocioRunTime;
 
 @Service
@@ -114,6 +112,7 @@ public class EgressoService {
         contato.setId_contato(c.getId_contato());
         return repoContato.save(contato);
     }
+
 
     @Transactional
     public Cargo editarEgressoCargo(Integer id_egresso, Integer id_cargo, Cargo cargo) {

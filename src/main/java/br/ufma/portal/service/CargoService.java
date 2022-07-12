@@ -28,9 +28,6 @@ public class CargoService {
         if (cargo.getNome() == null || cargo.getNome().equals(""))
             throw new RegraNegocioRunTime("O cargo deve possuir um nome!");
 
-        if (cargo.getProfEgresso() == null || cargo.getProfEgresso().isEmpty())
-            throw new RegraNegocioRunTime("erro");
-
         if (cargo.getDescricao() == null || cargo.getDescricao().equals(""))
             throw new RegraNegocioRunTime("O cargo deve conter uma desrição!");
     }
@@ -55,7 +52,6 @@ public class CargoService {
     @Transactional
     public void remover(Cargo cargo) {
         verificaId(cargo);
-        verificaCargo(cargo);
         repo.delete(cargo);
     }
 
@@ -65,6 +61,7 @@ public class CargoService {
         remover(cargo.get());
     }
 
+    @Transactional
     public List<Cargo> buscar(Cargo filtro) {
         Example<Cargo> example = Example.of(filtro, ExampleMatcher.matching()
                 .withIgnoreCase()
@@ -73,8 +70,8 @@ public class CargoService {
     }
 
     @Transactional
-    public List<Cargo> findByEgresso(Integer egresso){
-        return repo.findByEgresso(egresso);
+    public List<Cargo> findByEgresso(Integer id_egresso){
+        return repo.findByEgresso(id_egresso);
     }
 
     @Transactional

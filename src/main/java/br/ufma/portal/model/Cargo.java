@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,8 +29,9 @@ public class Cargo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cargo")
     private Integer id_cargo;
-        
+    
     @OneToMany(mappedBy="cargo_id")
+    @JsonIgnore
     private List<ProfEgresso> profEgresso;
 
     @Column(name="nome")

@@ -6,6 +6,9 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.stereotype.Service;
 
 import br.ufma.portal.model.Curso;
@@ -68,5 +71,13 @@ public class CursoService {
     @Transactional
     public Integer countEgressosByCurso(Integer idCurso) {
         return repo.countEgressosByCurso(idCurso);
+    }
+
+    @Transactional
+    public List<Curso> buscar(Curso filtro) {
+        Example<Curso> example = Example.of(filtro, ExampleMatcher.matching()
+                .withIgnoreCase()
+                .withStringMatcher(StringMatcher.CONTAINING));
+        return repo.findAll(example);
     }
 }

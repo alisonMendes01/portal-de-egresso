@@ -31,15 +31,6 @@ public class Egresso {
     @OneToMany(mappedBy ="contato_id")
     private List<ContatoEgresso> contatosEgresso;
 
-
-/*
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(
-        name = "contato_egresso", 
-        joinColumns = @JoinColumn(name = "egresso_id"), 
-        inverseJoinColumns = @JoinColumn(name = "contato_id"))
-    private List<Contato> contatos;
-*/
     @OneToMany(mappedBy="egresso_id")
     private List<Depoimento> depoimentos;
 

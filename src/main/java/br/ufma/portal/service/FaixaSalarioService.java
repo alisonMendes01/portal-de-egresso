@@ -1,10 +1,14 @@
 package br.ufma.portal.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.stereotype.Service;
 
 import br.ufma.portal.model.FaixaSalario;
@@ -58,6 +62,14 @@ public class FaixaSalarioService {
     @Transactional
     public Integer countEgressosByFaixaSalario(Integer idFaixaSalario) {
         return repo.countEgressosByFaixaSalario(idFaixaSalario);
+    }
+
+    @Transactional
+    public List<FaixaSalario> buscar(FaixaSalario filtro){
+            Example<FaixaSalario> example = Example.of(filtro, ExampleMatcher.matching()
+            .withIgnoreCase()
+            .withStringMatcher(StringMatcher.CONTAINING));
+        return repo.findAll(example);
     }
 
 }

@@ -18,7 +18,8 @@ import br.ufma.portal.model.repository.EgressoRepo;
 import br.ufma.portal.service.CursoService;
 import br.ufma.portal.service.exception.RegraNegocioRunTime;
 
-@SpringBootTest
+@SpringBootTest 
+@SuppressWarnings("unused")
 public class TesteCursoService {
     @Autowired
     public EgressoRepo repoEgresso;
