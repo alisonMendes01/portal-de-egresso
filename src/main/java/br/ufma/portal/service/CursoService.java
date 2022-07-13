@@ -58,9 +58,10 @@ public class CursoService {
     }
 
     @Transactional
-    public void remover(Integer id) {
+    public Curso remover(Integer id) {
         Optional<Curso> curso = repo.findById(id);
         remover(curso.get());
+        return curso.get();
     }
 
     @Transactional

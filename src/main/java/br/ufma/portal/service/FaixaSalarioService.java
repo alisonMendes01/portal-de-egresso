@@ -54,9 +54,10 @@ public class FaixaSalarioService {
     }
 
     @Transactional
-    public void remover(Integer id) {
+    public FaixaSalario remover(Integer id) {
         Optional<FaixaSalario> faixaSalario = repo.findById(id);
         remover(faixaSalario.get());
+        return faixaSalario.get();
     }
 
     @Transactional

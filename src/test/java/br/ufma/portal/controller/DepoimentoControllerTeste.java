@@ -56,7 +56,8 @@ public class DepoimentoControllerTeste{
         //Ação
         //controi requisição post
         MockHttpServletRequestBuilder request = 
-                                            MockMvcRequestBuilders.post(API.concat("/salvar"))
+                                            MockMvcRequestBuilders
+                                            .post(API.concat("/salvar"))
                                             .accept(MediaType.APPLICATION_JSON)
                                             .contentType(MediaType.APPLICATION_JSON)
                                             .content(json);
@@ -91,7 +92,8 @@ public class DepoimentoControllerTeste{
         String json = new ObjectMapper().writeValueAsString(dto);
         
         MockHttpServletRequestBuilder request = 
-        MockMvcRequestBuilders.post(API.concat("/editar/1"))
+        MockMvcRequestBuilders
+        .put(API.concat("/editar/1"))
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .content(json);

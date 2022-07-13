@@ -63,7 +63,8 @@ public class EgressoControllerTeste {
         //Ação
         //controi requisição post
         MockHttpServletRequestBuilder request = 
-                                            MockMvcRequestBuilders.post(API.concat("/salvar"))
+                                            MockMvcRequestBuilders
+                                            .post(API.concat("/salvar"))
                                             .accept(MediaType.APPLICATION_JSON)
                                             .contentType(MediaType.APPLICATION_JSON)
                                             .content(json);
@@ -98,7 +99,8 @@ public class EgressoControllerTeste {
         String json = new ObjectMapper().writeValueAsString(dto);
         
         MockHttpServletRequestBuilder request = 
-        MockMvcRequestBuilders.post(API.concat("/editar/1"))
+        MockMvcRequestBuilders
+        .put(API.concat("/editar/1"))
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .content(json);
@@ -118,7 +120,8 @@ public class EgressoControllerTeste {
         String json = new ObjectMapper().writeValueAsString(contatoentrada);
         
         MockHttpServletRequestBuilder request = 
-        MockMvcRequestBuilders.post(API.concat("/editar/contato/1&1"))
+        MockMvcRequestBuilders
+        .put(API.concat("/editar/contato/1&1"))
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .content(json);
@@ -138,7 +141,8 @@ public class EgressoControllerTeste {
         String json = new ObjectMapper().writeValueAsString(cargoentrada);
         
         MockHttpServletRequestBuilder request = 
-        MockMvcRequestBuilders.put(API.concat("/editar/cargo/1&1"))
+        MockMvcRequestBuilders
+        .put(API.concat("/editar/cargo/1&1"))
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .content(json);
@@ -158,7 +162,8 @@ public class EgressoControllerTeste {
         String json = new ObjectMapper().writeValueAsString(faixasalariontrada);
         
         MockHttpServletRequestBuilder request = 
-        MockMvcRequestBuilders.put(API.concat("/editar/faixasalario/1&1"))
+        MockMvcRequestBuilders
+        .put(API.concat("/editar/faixasalario/1&1"))
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .content(json);
@@ -178,7 +183,8 @@ public class EgressoControllerTeste {
         String json = new ObjectMapper().writeValueAsString(cursontrada);
         
         MockHttpServletRequestBuilder request = 
-        MockMvcRequestBuilders.put(API.concat("/editar/curso/1&1"))
+        MockMvcRequestBuilders
+        .put(API.concat("/editar/curso/1&1"))
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .content(json);

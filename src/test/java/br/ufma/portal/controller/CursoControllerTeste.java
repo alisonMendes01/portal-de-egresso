@@ -56,7 +56,8 @@ public class CursoControllerTeste {
         //Ação
         //controi requisição post
         MockHttpServletRequestBuilder request = 
-                                            MockMvcRequestBuilders.post(API.concat("/salvar"))
+                                            MockMvcRequestBuilders
+                                            .post(API.concat("/salvar"))
                                             .accept(MediaType.APPLICATION_JSON)
                                             .contentType(MediaType.APPLICATION_JSON)
                                             .content(json);
@@ -65,9 +66,9 @@ public class CursoControllerTeste {
         //Ação e Verificação
         mvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated());
     }
-/* 
+
     @Test
-    public void deveRemoverCurso(){
+    public void deveRemoverCurso() throws Exception{
         
         Curso curso = Curso.builder().id_curso(11).nome("Teste").nivel("Superior").build();
 
@@ -80,7 +81,7 @@ public class CursoControllerTeste {
 
         mvc.perform(request).andExpect(MockMvcResultMatchers.status().isNoContent());
     }
-*/
+
     @Test
     public void deveObterCurso() throws Exception  {
         Curso buscacurso = Curso.builder().id_curso(1).build();
@@ -109,7 +110,8 @@ public class CursoControllerTeste {
         String json = new ObjectMapper().writeValueAsString(dto);
         
         MockHttpServletRequestBuilder request = 
-        MockMvcRequestBuilders.post(API.concat("/editar/1"))
+        MockMvcRequestBuilders
+        .put(API.concat("/editar/1"))
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .content(json);

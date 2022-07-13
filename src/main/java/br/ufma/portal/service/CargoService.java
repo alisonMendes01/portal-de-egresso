@@ -56,9 +56,10 @@ public class CargoService {
     }
 
     @Transactional
-    public void remover(Integer id) {
+    public Cargo remover(Integer id) {
         Optional<Cargo> cargo = repo.findById(id);
         remover(cargo.get());
+        return cargo.get();
     }
 
     @Transactional
