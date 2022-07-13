@@ -78,9 +78,10 @@ public class DepoimentoService {
     }
     
     @Transactional
-    public void remover(Integer id) {
+    public Depoimento remover(Integer id) {
         Optional<Depoimento> depoimento = repo.findById(id);
         remover(depoimento.get());
+        return depoimento.get();
     }
     @Transactional
     public List<EgressoDepoimentoDto> BuscarporEgresso(Integer id){
