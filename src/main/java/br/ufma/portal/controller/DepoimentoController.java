@@ -92,5 +92,13 @@ public class DepoimentoController {
         }
     }
 
-    
+    @GetMapping("/obter-recente")
+    public ResponseEntity obterRecentes(){
+        try{
+            List<Depoimento> recentes  = service.buscarRecente();
+            return ResponseEntity.ok(recentes);
+        }catch (RegraNegocioRunTime e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

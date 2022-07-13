@@ -53,8 +53,7 @@ public class FaixaSalarioController {
 
     @GetMapping("/obter/{id}")
     public ResponseEntity obter(
-
-            @PathVariable(value = "id", required = true) Integer id) {
+        @PathVariable(value = "id", required = true) Integer id) {
         FaixaSalario filtro = FaixaSalario.builder()
                 .id_faixa_salario(id)
                 .build();
@@ -73,6 +72,19 @@ public class FaixaSalarioController {
                 .build();
             FaixaSalario salvo = service.editar(faixaSalario);
             return ResponseEntity.ok(salvo);
+        } catch (RegraNegocioRunTime e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/egressoporfaixasalario/{id}")
+    public ResponseEntity obterPorFaixaSalario(
+        @PathVariable("id") Integer id
+    ){
+
+        try{
+            Integer i = service.countEgressosByFaixaSalario(id);
+            return ResponseEntity.ok(i);
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

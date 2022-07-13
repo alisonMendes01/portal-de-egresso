@@ -64,8 +64,7 @@ public class EgressoController {
 
     @GetMapping("/obter/{id}")
     public ResponseEntity obter(
-
-            @PathVariable(value = "id", required = true) Integer id) {
+        @PathVariable(value = "id", required = true) Integer id) {
         Egresso filtro = Egresso.builder()
                 .id_egresso(id)
                 .build();
