@@ -133,7 +133,7 @@ public class EgressoController {
         }
     }
 
-    @PutMapping("/editar/faixasalario/{id_egresso}&{id_curso}")
+    @PutMapping("/editar/curso/{id_egresso}&{id_curso}")
     public ResponseEntity editarCurso(
         @PathVariable("id_egresso") Integer id_egresso,
         @PathVariable("id_Curso") Integer id_curso,

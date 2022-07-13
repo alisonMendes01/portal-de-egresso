@@ -148,8 +148,9 @@ public class EgressoService {
     }
 
     @Transactional
-    public void remover(Integer id) {
+    public Egresso remover(Integer id) {
         Optional<Egresso> egresso = repo.findById(id);
         remover(egresso.get());
+        return egresso.get();
     }
 }
