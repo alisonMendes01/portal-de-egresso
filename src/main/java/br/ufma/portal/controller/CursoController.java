@@ -84,7 +84,7 @@ public class CursoController {
     }
     
     @GetMapping("/obter-por-egresso/{id}")
-    public ResponseEntity obterporegresso(
+    public ResponseEntity obterPorEgresso(
             @PathVariable("id") Integer id) {
         try{
             List<Egresso> egresso = service.findByEgresso(id);

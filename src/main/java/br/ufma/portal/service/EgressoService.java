@@ -13,8 +13,7 @@ import org.springframework.stereotype.Service;
 
 import br.ufma.portal.model.Cargo;
 import br.ufma.portal.model.Contato;
-import br.ufma.portal.model.CursoEgresso;
-import br.ufma.portal.model.CursoEgressoPk;
+import br.ufma.portal.model.Curso;
 import br.ufma.portal.model.Egresso;
 import br.ufma.portal.model.FaixaSalario;
 import br.ufma.portal.model.repository.CargoRepo;
@@ -61,8 +60,8 @@ public class EgressoService {
         if ((egresso.getNome() == null) || (egresso.getNome().equals("")))
             throw new RegraNegocioRunTime("O egresso deve ter um nome!");
 
-        if ((egresso.getCpf() == null) || (egresso.getCpf().equals("")) || (egresso.getCpf().length() != 11))
-            throw new RegraNegocioRunTime("O egresso deve ter um cpf!");
+       // if ((egresso.getCpf() == null) || (egresso.getCpf().equals("")) || (egresso.getCpf().length() != 11))
+       //     throw new RegraNegocioRunTime("O egresso deve ter um cpf!");
 
         if ((egresso.getEmail() == null) || (egresso.getEmail().equals("")))
             throw new RegraNegocioRunTime("O egresso deve ter um e-mail!");
@@ -74,6 +73,12 @@ public class EgressoService {
 
     public void verificaId(Egresso egresso) {
         if ((egresso == null) || (egresso.getId_egresso() == null))
+            throw new RegraNegocioRunTime("Não foi encontrado nenhum egresso");
+    }
+
+    public void verificaId(Integer id) {
+        Optional<Egresso> egresso = repo.findById(id); // busca o egresso pelo id
+        if (!egresso.isPresent()) // se não encontrar o egresso
             throw new RegraNegocioRunTime("Não foi encontrado nenhum egresso");
     }
 
@@ -99,45 +104,79 @@ public class EgressoService {
 
     @Transactional
     public Egresso editarEgressoNome(Integer id, String nome) {
-        Optional<Egresso> egresso = repo.findById(id);
-        Egresso e = egresso.get();
-        e.setNome(nome);
-        return repo.save(e);
+        // verifica se o id do egresso existe
+        verificaId(id);
+        // busca o egresso pelo id
+        Egresso egresso = repo.findById(id).get();
+        // edita o nome do egresso
+        egresso.setNome(nome);
+        // salva o egresso
+        return salvar(egresso);
     }
 
     @Transactional
     public Contato editarEgressoContato(Integer id_egresso, Integer id_contato, Contato contato) {
+        // verifica se o contato existe
         Optional<Contato> AtualizarContato = repoContato.findById(id_contato);
-        Contato c = AtualizarContato.get();
-        contato.setId_contato(c.getId_contato());
-        return repoContato.save(contato);
+        // se existir, atualiza o contato
+        if (AtualizarContato.isPresent()) {
+            Contato c = AtualizarContato.get();
+            contato.setId_contato(c.getId_contato());
+            return repoContato.save(contato);
+        } else {
+            // se não existir, cria o contato
+            return repoContato.save(contato);
+        }
     }
 
 
     @Transactional
+    // editar egresso cargo
     public Cargo editarEgressoCargo(Integer id_egresso, Integer id_cargo, Cargo cargo) {
+        // verifica se o cargo existe
         Optional<Cargo> AtualizarCargo = repoCargo.findById(id_cargo);
-        Cargo c = AtualizarCargo.get();
-        cargo.setId_cargo(c.getId_cargo());
-        return repoCargo.save(cargo);
+        // se existir, atualiza o cargo
+        if (AtualizarCargo.isPresent()) {
+            Cargo c = AtualizarCargo.get();
+            cargo.setId_cargo(c.getId_cargo());
+            return repoCargo.save(cargo);
+        } else {
+            // se não existir, cria o cargo
+            return repoCargo.save(cargo);
+        }
     }
     
 
     @Transactional
+    // editar egresso faixa salario
     public FaixaSalario editarEgressoFaixaSalario(Integer id_egresso, Integer id_faixa_salario, FaixaSalario faixaSalario) {
+        // verifica se o faixa salario existe
         Optional<FaixaSalario> AtualizarFaixaSalario = repoFaixaSalario.findById(id_faixa_salario);
-        FaixaSalario f = AtualizarFaixaSalario.get();
-        faixaSalario.setId_faixa_salario(f.getId_faixa_salario());
-        return repoFaixaSalario.save(faixaSalario);
+        // se existir, atualiza o faixa salario
+        if (AtualizarFaixaSalario.isPresent()) {
+            FaixaSalario f = AtualizarFaixaSalario.get();
+            faixaSalario.setId_faixa_salario(f.getId_faixa_salario());
+            return repoFaixaSalario.save(faixaSalario);
+        } else {
+            // se não existir, cria o faixa salario
+            return repoFaixaSalario.save(faixaSalario);
+        }
     }
 
     @Transactional
-    public CursoEgresso editarCurso(Integer id_egresso, Integer id_curso, CursoEgresso cursoEgresso) {
-        CursoEgressoPk pk = CursoEgressoPk.builder().id_egresso(id_egresso).id_curso(id_curso).build();
-        Optional<CursoEgresso> AtualizarCursoEgresso = repoCursoEgresso.findById(pk);
-        CursoEgresso e = AtualizarCursoEgresso.get();
-        cursoEgresso.setId(e.getId());
-        return repoCursoEgresso.save(cursoEgresso);
+    // editar egresso curso
+    public Curso editarEgressoCurso(Integer id_egresso, Integer id_curso, Curso curso) {
+        // verifica se o curso existe
+        Optional<Curso> AtualizarCurso = repoCurso.findById(id_curso);
+        // se existir, atualiza o curso
+        if (AtualizarCurso.isPresent()) {
+            Curso c = AtualizarCurso.get();
+            curso.setId_curso(c.getId_curso());
+            return repoCurso.save(curso);
+        } else {
+            // se não existir, cria o curso
+            return repoCurso.save(curso);
+        }
     }
 
     @Transactional

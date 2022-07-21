@@ -65,6 +65,7 @@ public class TesteEgressoService {
                 .resumo("resumo abc")
                 .build();
         Egresso retornoEgresso = repoEgresso.save(novo);
+        //Egresso retorno = service.editarEgressoNome(retornoEgresso.getId_egresso(), "Nome editado");
         Egresso retorno = service.editarEgressoNome(retornoEgresso.getId_egresso(), "Nome editado");
 
         Assertions.assertNotEquals(retornoEgresso.getNome(), retorno.getNome());
@@ -107,22 +108,35 @@ public class TesteEgressoService {
     @Test
     public void deveEditarCurso() {
         // cenario
-        Egresso novo = Egresso.builder().nome("Mario de Satan")
+        Egresso novo = Egresso.builder().nome("Maria de Jesus")
                 .cpf("123")
                 .email("a@a.com")
                 .resumo("resumo abc")
                 .build();
         Egresso retornoEgresso = repoEgresso.save(novo);
 
-        Curso novoCurso = Curso.builder().nome("curso").nivel("Superior").build();
+        Curso novoCurso = Curso.builder()
+                .nome("Curso de Teste")
+                .nivel("GRADUACAO")
+                .build();
         Curso retornoCurso = repoCurso.save(novoCurso);
 
-        CursoEgresso ce = CursoEgresso.builder().data_conclusao(LocalDate.of(2022, Month.MAY, 15)).data_inicio(LocalDate.of(2022, Month.MAY, 15)).build();
-        ce.setCurso_id(retornoCurso);
-        ce.setEgresso_id(retornoEgresso);
-        repoCursoEgresso.save(ce);
-        CursoEgresso ceAtt = CursoEgresso.builder().data_conclusao(LocalDate.of(2012, Month.MAY, 15)).data_inicio(LocalDate.of(2012, Month.MAY, 15)).build();
-        CursoEgresso Atualizadoce = service.editarCurso(retornoEgresso.getId_egresso(), retornoCurso.getId_curso(), ceAtt);
+        CursoEgresso ce = CursoEgresso.builder()
+                .egresso_id(retornoEgresso)
+                .data_inicio(LocalDate.of(2020, Month.JANUARY, 1))
+                .data_conclusao(LocalDate.of(2021, Month.JANUARY, 1))
+                .curso_id(retornoCurso)
+                .build();
+        CursoEgresso retornoCE = repoCursoEgresso.save(ce);
+
+        Curso atualizarCurso = Curso.builder()
+                .nome("Curso Atualizado")
+                .nivel("MESTRADO")
+                .build();
+        // ação
+        service.editarEgressoCurso(retornoEgresso.getId_egresso(), retornoCurso.getId_curso(), atualizarCurso);
+        
+
     }
     
     @Test

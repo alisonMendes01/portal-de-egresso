@@ -1,10 +1,9 @@
 package br.ufma.portal.controller;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,23 +11,23 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import br.ufma.portal.model.FaixaSalario;
 import br.ufma.portal.model.dto.FaixaSalarioDto;
 import br.ufma.portal.service.FaixaSalarioService;
 
-@ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
-@WebMvcTest(controllers = CargoController.class)
+@WebMvcTest(controllers = FaixaSalarioController.class)
 @AutoConfigureMockMvc
 public class FaixaSalarioControllerTeste {
 
-    static final String API = "/api/faixasalario";
+    static final String API = "/api/faixa_salario";
 
     @Autowired
     MockMvc mvc;
@@ -36,94 +35,124 @@ public class FaixaSalarioControllerTeste {
     @MockBean
     FaixaSalarioService service;
 
-
     @Test
-    public void deveSalvar() throws Exception{
-        //Cenário
-        //Dto para virar json
-        FaixaSalarioDto dto = FaixaSalarioDto.builder().descricao("faixa salario").build();
+    public void deveSalvarFaixaSalario() throws Exception {
+        // cenario
+        FaixaSalarioDto dto = FaixaSalarioDto.builder()
+                .descricao("Faixa de salario de teste")
+                .build();
 
+        // resposta que será mock
+        FaixaSalario faixaSalario = FaixaSalario.builder()
+                .descricao(dto.getDescricao())
+                .build();
 
-        //Resposta que será mock
-        FaixaSalario faixa = FaixaSalario.builder().id_faixa_salario(1).descricao("faixa salario").build();
+        // mock salvar
+        Mockito.when(service.salvar(Mockito.any(FaixaSalario.class))).thenReturn(faixaSalario);
 
-        //mock salvar
-        Mockito.when(service.salvar(Mockito.any(FaixaSalario.class))).thenReturn(faixa);
-
-        //Convertendo para json
+        // converte o dto para json
         String json = new ObjectMapper().writeValueAsString(dto);
 
-        //Ação
-        //controi requisição post
-        MockHttpServletRequestBuilder request = 
-                                            MockMvcRequestBuilders
-                                            .post(API.concat("/salvar"))
-                                            .accept(MediaType.APPLICATION_JSON)
-                                            .contentType(MediaType.APPLICATION_JSON)
-                                            .content(json);
+        // ação
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .post(API.concat("/salvar"))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
 
-
-        //Ação e Verificação
-        mvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated());
+        // ação e verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test
-    public void deveRemover() throws Exception{
-        FaixaSalario faixa = FaixaSalario.builder().id_faixa_salario(1).descricao("fa").build();
+    public void deveDeletarFaixaSalario() throws Exception {
+        // cenario
+        FaixaSalario faixaSalario = FaixaSalario.builder()
+                .id_faixa_salario(1)
+                .descricao("Faixa de salario de teste")
+                .build();
+        // mock salvar
+        Mockito.when(service.salvar(Mockito.any(FaixaSalario.class))).thenReturn(faixaSalario);
+        // mock deletar
+        Mockito.when(service.remover(Mockito.anyInt())).thenReturn(faixaSalario);
+        // ação
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .delete(API.concat("/deletar/1"))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
 
-        Mockito.when(service.remover(Mockito.anyInt())).thenReturn(faixa);
+        // ação e verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
-        MockHttpServletRequestBuilder request = 
-                                            MockMvcRequestBuilders
-                                            .delete(API.concat("/deletar/1"))
-                                            .accept(MediaType.APPLICATION_JSON);
-
-        mvc.perform(request).andExpect(MockMvcResultMatchers.status().isNoContent());
     }
 
     @Test
-    public void deveEditar() throws Exception{
-        Integer id = 1;
-        FaixaSalarioDto dto = FaixaSalarioDto.builder().descricao("abc").build();
-        FaixaSalario faixa = FaixaSalario.builder().id_faixa_salario(1).descricao("abc").build();        
-        Mockito.when(service.editar(Mockito.any(FaixaSalario.class))).thenReturn(faixa);
+    public void deveObterFaixaSalario() throws Exception {
+        // cenario
+        List<FaixaSalario> faixaSalario = new ArrayList<>();
+        faixaSalario.add(FaixaSalario.builder()
+        .id_faixa_salario(1)
+        .descricao("Faixa de salario de teste")
+        .build());
+        // mock obter
+        Mockito.when(service.buscar(Mockito.any(FaixaSalario.class))).thenReturn(faixaSalario);
 
+        // ação
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get(API.concat("/obter/1"))
+                .accept(MediaType.APPLICATION_JSON);
+        // ação e verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void deveAtualizarFaixaSalario() throws Exception {
+        // cenario
+        FaixaSalarioDto dto = FaixaSalarioDto.builder()
+                .id(1)
+                .descricao("Faixa de salario de teste")
+                .build();
+        // mock salvar
+        Mockito.when(service.salvar(Mockito.any(FaixaSalario.class))).thenReturn(FaixaSalario.builder().build());
+
+        // mock atualizar
+        Mockito.when(service.editar(Mockito.any(FaixaSalario.class))).thenReturn(FaixaSalario.builder().build());
+
+        // converte o dto para json
         String json = new ObjectMapper().writeValueAsString(dto);
-        
-        MockHttpServletRequestBuilder request = 
-        MockMvcRequestBuilders
-        .put(API.concat("/editar/1"))
-        .accept(MediaType.APPLICATION_JSON)
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(json);
-
-        mvc.perform(request).andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test 
-    public void deveObter() throws Exception{
-        FaixaSalario faixa = FaixaSalario.builder().id_faixa_salario(1).build();
-
-        List<FaixaSalario> resposta = Arrays.asList(faixa);
-
-        Mockito.when(service.buscar(Mockito.any(FaixaSalario.class))).thenReturn(resposta);
-
+        // ação
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                                                .get(API.concat("/obter/1"))
-                                                .accept(MediaType.APPLICATION_JSON);
-        
-        mvc.perform(request).andExpect(MockMvcResultMatchers.status().isOk());
+                .put(API.concat("/editar/1"))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+        // ação e verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
+    
+    @Test
+    public void deveObterEgressoPorFaixaSalario() throws Exception {
+        // testa o método countEgressosByFaixaSalario
+        // cenario
+        List<FaixaSalario> faixaSalario = new ArrayList<>();
+        faixaSalario.add(FaixaSalario.builder().build());
+        faixaSalario.add(FaixaSalario.builder().build());
+        // mock obter
+        Mockito.when(service.countEgressosByFaixaSalario(Mockito.anyInt())).thenReturn(Mockito.anyInt());
 
-    @Test 
-    public void deveContaPorFaixadeSalario()  throws Exception{
-        Integer id = 1;
-        Mockito.when(service.countEgressosByFaixaSalario(Mockito.anyInt())).thenReturn(id);
-
+        // ação
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                                                .get(API.concat("/obter-por-egresso/1"))
-                                                .accept(MediaType.APPLICATION_JSON);
-
-        mvc.perform(request).andExpect(MockMvcResultMatchers.status().isOk());
+                .get(API.concat("/egressoporfaixasalario/1"))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+        // ação e verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk());
+                
     }
+
 }

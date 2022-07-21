@@ -164,7 +164,7 @@ public class TesteDepoimentoService {
         service.salvar(depoimento3);
         service.salvar(depoimento4);
 
-        List<EgressoDepoimentoDto> temp = service.BuscarporEgresso(retornoEgresso.getId_egresso());
+        List<EgressoDepoimentoDto> temp = service.buscarPorEgresso(retornoEgresso.getId_egresso());
         System.out.println("Egresso 1");
         for (EgressoDepoimentoDto dto: temp){
             System.out.println(dto.getTexto());

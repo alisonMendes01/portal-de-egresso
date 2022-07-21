@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.ufma.portal.model.Cargo;
 import br.ufma.portal.model.Contato;
-import br.ufma.portal.model.CursoEgresso;
+import br.ufma.portal.model.Curso;
 import br.ufma.portal.model.Egresso;
 import br.ufma.portal.model.FaixaSalario;
 import br.ufma.portal.model.dto.EgressoDto;
@@ -122,7 +122,7 @@ public class EgressoController {
     @PutMapping("/editar/faixasalario/{id_egresso}&{id_faixasalario}")
     public ResponseEntity editarFaixaSalario(
         @PathVariable("id_egresso") Integer id_egresso,
-        @PathVariable("id_FaixaSalario") Integer id_faixasalario,
+        @PathVariable("id_faixasalario") Integer id_faixasalario,
         @RequestBody FaixaSalario faixaSalario ){
         
          try{
@@ -136,14 +136,15 @@ public class EgressoController {
     @PutMapping("/editar/curso/{id_egresso}&{id_curso}")
     public ResponseEntity editarCurso(
         @PathVariable("id_egresso") Integer id_egresso,
-        @PathVariable("id_Curso") Integer id_curso,
-        @RequestBody CursoEgresso cursoegresso){
-
-        try{
-            CursoEgresso cursoRetorno = service.editarCurso(id_egresso, id_curso, cursoegresso);
+        @PathVariable("id_curso") Integer id_curso,
+        @RequestBody Curso curso ){
+        
+         try{
+            Curso cursoRetorno = service.editarEgressoCurso(id_egresso, id_curso, curso);
             return ResponseEntity.ok(cursoRetorno);
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    
 }

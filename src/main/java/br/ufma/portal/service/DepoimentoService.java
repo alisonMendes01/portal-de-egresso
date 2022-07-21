@@ -46,16 +46,11 @@ public class DepoimentoService {
         return repo.save(depoimento);
     }
 
-    /*
-    consultar depoimentos ordenados pelo mais recente
-    consultar depoimentos por egresso
-    */
     @Transactional
     public List<Depoimento> buscarRecente() {
         return repo.findAllByOrderByDataDesc();
     }
 
-    //repository.findAll(Sort.by(Sort.Direction.DESC, "colName"));
     @Transactional
     public List<Depoimento> buscar(Depoimento filtro) {
         Example<Depoimento> example = 
@@ -84,7 +79,7 @@ public class DepoimentoService {
         return depoimento.get();
     }
     @Transactional
-    public List<EgressoDepoimentoDto> BuscarporEgresso(Integer id){
+    public List<EgressoDepoimentoDto> buscarPorEgresso(Integer id){
         return repo.obterDepoimentoPorEgresso(id);
     }
 }

@@ -43,9 +43,7 @@ public class DepoimentoController {
     }  
     
     @PutMapping("/editar/{id}")
-    public ResponseEntity atualizar(
-            @RequestBody DepoimentoDto dto,
-            @PathVariable Integer id) {
+    public ResponseEntity atualizar(@PathVariable Integer id, @RequestBody DepoimentoDto dto) {
         Depoimento depoimento = Depoimento.builder()
                 .id_depoimento(id)
                 .texto(dto.getTexto())
@@ -53,7 +51,7 @@ public class DepoimentoController {
                 .build();
         try {
             Depoimento salvo = service.editar(depoimento);
-            return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
+            return ResponseEntity.status(HttpStatus.OK).body(salvo);
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -82,10 +80,10 @@ public class DepoimentoController {
     }
 
     @GetMapping("/obter-por-egresso/{id}")
-    public ResponseEntity obterporegresso(
+    public ResponseEntity obterporegresso( 
             @PathVariable("id") Integer id) {
         try{
-            List<EgressoDepoimentoDto> cargo = service.BuscarporEgresso(id);
+            List<EgressoDepoimentoDto> cargo = service.buscarPorEgresso(id);
             return ResponseEntity.ok(cargo);
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());

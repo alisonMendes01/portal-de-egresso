@@ -1,10 +1,10 @@
 package br.ufma.portal.controller;
 
-import java.util.Arrays;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,25 +12,26 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import br.ufma.portal.model.Depoimento;
 import br.ufma.portal.model.dto.DepoimentoDto;
 import br.ufma.portal.model.dto.EgressoDepoimentoDto;
 import br.ufma.portal.service.DepoimentoService;
 
-@ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
-@WebMvcTest(controllers = CargoController.class)
+@WebMvcTest(controllers = DepoimentoController.class)
 @AutoConfigureMockMvc
-public class DepoimentoControllerTeste{
-    static final String API = "/api/depoimento";
+public class DepoimentoControllerTeste {
+
+    static final String API = "/api/depoimentos";
 
     @Autowired
     MockMvc mvc;
@@ -39,116 +40,154 @@ public class DepoimentoControllerTeste{
     DepoimentoService service;
 
     @Test
-    public void deveSalvar() throws Exception {
-        //Cenário
-        //Dto para virar json
-        DepoimentoDto dto = DepoimentoDto.builder().texto("abc").build();
+    public void deveSalvarDepoimento() throws Exception {
+        // cenario
+        DepoimentoDto dto = DepoimentoDto.builder()
+                .texto("Depoimento de teste")
+                .data(LocalDate.now())
+                .build();
 
-        //Resposta que será mock
-        Depoimento depoimento = Depoimento.builder().id_depoimento(11).texto("abc").build();
+        // resposta que será mock
+        Depoimento depoimento = Depoimento.builder()
+                .texto(dto.getTexto())
+                .data(dto.getData())
+                .build();
 
-        //mock salvar
+        // mock salvar
         Mockito.when(service.salvar(Mockito.any(Depoimento.class))).thenReturn(depoimento);
 
-        //Convertendo para json
-        String json = new ObjectMapper().writeValueAsString(dto);
+        // converte o dto para json
+        String json = new ObjectMapper()
+                .registerModule(new JavaTimeModule())
+                .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+                .writeValueAsString(dto);
 
-        //Ação
-        //controi requisição post
-        MockHttpServletRequestBuilder request = 
-                                            MockMvcRequestBuilders
-                                            .post(API.concat("/salvar"))
-                                            .accept(MediaType.APPLICATION_JSON)
-                                            .contentType(MediaType.APPLICATION_JSON)
-                                            .content(json);
+        // ação
+        MockHttpServletRequestBuilder response = MockMvcRequestBuilders.post(API.concat("/salvar"))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
 
+        // ação e verificação
+        mvc.perform(response)
+                .andExpect(MockMvcResultMatchers.status().isCreated());
 
-        //Ação e Verificação
-        mvc.perform(request).andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test
-    public void deveRemover() throws Exception {
-        Depoimento depoimento = Depoimento.builder().id_depoimento(1).texto("abc").build();
-
+    public void deveDeletarDepoimento() throws Exception {
+        // cenario
+        Depoimento depoimento = Depoimento.builder()
+                .id_depoimento(1)
+                .texto("Depoimento de teste")
+                .data(LocalDate.now())
+                .build();
+        // mock salvar
+        Mockito.when(service.salvar(Mockito.any(Depoimento.class))).thenReturn(depoimento);
+        // mock deletar
         Mockito.when(service.remover(Mockito.anyInt())).thenReturn(depoimento);
+        // ação
+        MockHttpServletRequestBuilder response = MockMvcRequestBuilders.delete(API.concat("/deletar/1"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON);
+        // ação e verificação
+        mvc.perform(response)
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+    
+    @Test  
+    public void deveEditarDepoimento() throws Exception{
+        // cenario
+        DepoimentoDto dto = DepoimentoDto.builder()
+        .id(1)
+                .texto("Depoimento de teste")
+                .data(LocalDate.now())
+                .build();
 
-        MockHttpServletRequestBuilder request = 
-                                            MockMvcRequestBuilders
-                                            .delete(API.concat("/deletar/1"))
-                                            .accept(MediaType.APPLICATION_JSON);
+        // mock salvar
+        Mockito.when(service.salvar(
+                Mockito.any(Depoimento.class))).thenReturn(Depoimento.builder().build());
 
-        mvc.perform(request).andExpect(MockMvcResultMatchers.status().isNoContent());
+        // mock editar
+        Mockito.when(service.editar(
+                Mockito.any(Depoimento.class))).thenReturn(Depoimento.builder().build());
+
+        // converte o dto para json
+        String json = new ObjectMapper()
+                .registerModule(new JavaTimeModule())
+                .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+                .writeValueAsString(dto);
+
+        // ação
+        MockHttpServletRequestBuilder response = MockMvcRequestBuilders.put(API.concat("/editar/1"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(json);
+        // ação e verificação
+        mvc.perform(response)
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
-    public void deveEditar() throws Exception {
-        Integer id = 1;
-        DepoimentoDto dto = DepoimentoDto.builder().texto("abc").build();
-        Depoimento depoimento = Depoimento.builder().id_depoimento(1).texto("abc").build();
-        
-        Mockito.when(service.editar(Mockito.any(Depoimento.class))).thenReturn(depoimento);
+    public void deveObterDepoimento() throws Exception {
+        // cenario
+        List<Depoimento> depoimentos = new ArrayList<>();
+        depoimentos.add(Depoimento.builder().build());
+        depoimentos.add(Depoimento.builder().build());
+        depoimentos.add(Depoimento.builder().build());
 
-        String json = new ObjectMapper().writeValueAsString(dto);
-        
-        MockHttpServletRequestBuilder request = 
-        MockMvcRequestBuilders
-        .put(API.concat("/editar/1"))
-        .accept(MediaType.APPLICATION_JSON)
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(json);
+        // mock buscar
+        Mockito.when(service.buscar(Mockito.any(Depoimento.class))).thenReturn(depoimentos);
 
-        mvc.perform(request).andExpect(MockMvcResultMatchers.status().isOk());
+        // ação
+        MockHttpServletRequestBuilder response = MockMvcRequestBuilders.get(API.concat("/obter/1"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON);
+        // ação e verificação
+        mvc.perform(response)
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
-    public void deveObter() throws Exception {
-        Depoimento buscadepoimento = Depoimento.builder().id_depoimento(1).texto("abc").build();
-        Depoimento depoimento = Depoimento.builder().id_depoimento(1).texto("abc").build();
+    public void deveObterDepoimentoPorEgresso() throws Exception {
+        // esse método é para obter os depoimentos de um egresso específico e não de todos os depoimentos do sistema
+        // cenario
+        List<EgressoDepoimentoDto> depoimentos = new ArrayList<>();
+        depoimentos.add(EgressoDepoimentoDto.builder().build());
+        depoimentos.add(EgressoDepoimentoDto.builder().build());
+        depoimentos.add(EgressoDepoimentoDto.builder().build());
 
-        List<Depoimento> resposta = Arrays.asList(depoimento);
+        // mock buscar
+        Mockito.when(service.buscarPorEgresso(Mockito.anyInt())).thenReturn(depoimentos);
 
-        Mockito.when(service.buscar(Mockito.any(Depoimento.class))).thenReturn(resposta);
+        // ação
+        MockHttpServletRequestBuilder response = MockMvcRequestBuilders.get(API.concat("/obter-por-egresso/1"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON);
+        // ação e verificação
+        mvc.perform(response)
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                                                .get(API.concat("/obter/1"))
-                                                .accept(MediaType.APPLICATION_JSON);
-        
-        mvc.perform(request).andExpect(MockMvcResultMatchers.status().isOk())
-                            .andExpect(MockMvcResultMatchers.jsonPath("$[0].texto").value("abc"));
     }
 
     @Test
-    public void deveObterPorEgresso() throws Exception{
-        Integer id = 1;
-        EgressoDepoimentoDto e1 = EgressoDepoimentoDto.builder().id(1).texto("abc").build();
-        EgressoDepoimentoDto e2 = EgressoDepoimentoDto.builder().id(2).texto("abc").build();
+    public void deveObterDepoimentosRecentes() throws Exception {
+        // cenario
+        List<Depoimento> depoimentos = new ArrayList<>();
+        depoimentos.add(Depoimento.builder().build());
+        depoimentos.add(Depoimento.builder().build());
+        depoimentos.add(Depoimento.builder().build());
 
-        List<EgressoDepoimentoDto> retorno = Arrays.asList(e1, e2);
+        // mock buscar
+        Mockito.when(service.buscarRecente()).thenReturn(depoimentos);
 
-        Mockito.when(service.BuscarporEgresso(Mockito.anyInt())).thenReturn(retorno);
-
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                                                .get(API.concat("/obter-por-egresso/1"))
-                                                .accept(MediaType.APPLICATION_JSON);
-
-        mvc.perform(request).andExpect(MockMvcResultMatchers.status().isOk());
+        // ação
+        MockHttpServletRequestBuilder response = MockMvcRequestBuilders.get(API.concat("/obter-recente"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON);
+        // ação e verificação
+        mvc.perform(response)
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
-
-    @Test
-    public void deveObterRecentes() throws Exception{
-        Depoimento d1 = Depoimento.builder().id_depoimento(1).texto("abc").build();
-        Depoimento d2 = Depoimento.builder().id_depoimento(2).texto("abc").build();
-        List<Depoimento> retorno = Arrays.asList(d1,d2);
-        Mockito.when(service.buscarRecente()).thenReturn(retorno);
-        
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                                                .get(API.concat("/obter-recente"))
-                                                .accept(MediaType.APPLICATION_JSON);
-
-        mvc.perform(request).andExpect(MockMvcResultMatchers.status().isOk());
-                                            
-    }
-
-
+    
 }
