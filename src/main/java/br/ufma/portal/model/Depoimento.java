@@ -25,22 +25,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Table(name= "depoimento")
+@Table(name = "depoimento")
 public class Depoimento {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_depoimento")
     private Integer id_depoimento;
-    
+
     @ManyToOne
-    @JoinColumn(name="egresso_id")
+    @JoinColumn(name = "egresso_id")
     private Egresso egresso_id;
-    
-    @Column(name="texto")
+
+    @Column(name = "texto")
     private String texto;
 
-    @Column(name = "data")   
+    @Column(name = "data")
     @Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
     private LocalDate data;
 }

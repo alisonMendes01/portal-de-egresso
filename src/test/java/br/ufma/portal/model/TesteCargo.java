@@ -12,12 +12,11 @@ import br.ufma.portal.model.repository.CargoRepo;
 @SpringBootTest
 public class TesteCargo {
     @Autowired
-    public
-    CargoRepo repo;
+    public CargoRepo repo;
 
     @Test
-    public void devecriaCargo(){
-        //cenario
+    public void devecriaCargo() {
+        // cenario
         Cargo novo = Cargo.builder().nome("criarCargo").descricao("descricao").build();
 
         // acao
@@ -27,42 +26,42 @@ public class TesteCargo {
         Assertions.assertEquals(novo.getNome(), retorno.getNome());
         Assertions.assertEquals(novo.getDescricao(), retorno.getDescricao());
 
-        //Rollback
+        // Rollback
         repo.delete(retorno);
     }
 
     @Test
-    public void deveremoverCargo(){
-        //cenario
+    public void deveremoverCargo() {
+        // cenario
         Cargo novo = Cargo.builder().nome("RemoverCargo").descricao("descricao").build();
         Cargo retorno = repo.save(novo);
-        
+
         // acao
         Integer id = retorno.getId_cargo();
         repo.deleteById(id);
-        
-        //verificação
-        Optional<Cargo> temp = repo.findById(id);  
+
+        // verificação
+        Optional<Cargo> temp = repo.findById(id);
         Assertions.assertFalse(temp.isPresent());
 
-        //Rollback
+        // Rollback
         repo.delete(retorno);
 
     }
-    
+
     @Test
-    public void deveobterCargo(){
-        //cenario
-        Cargo novo = Cargo.builder().nome("ObterCargo").descricao("descricao").build();
+    public void deveBuscarCargo() {
+        // cenario
+        Cargo novo = Cargo.builder().nome("BuscarCargo").descricao("descricao").build();
         Cargo retorno = repo.save(novo);
 
         // acao
         Optional<Cargo> temp = repo.findById(retorno.getId_cargo());
-        
+
         // verificacao
         Assertions.assertTrue(temp.isPresent());
 
-        //Rollback
+        // Rollback
         repo.delete(retorno);
 
     }

@@ -75,7 +75,7 @@ public class DepoimentoControllerTeste {
     }
 
     @Test
-    public void deveDeletarDepoimento() throws Exception {
+    public void deveRemoverDepoimento() throws Exception {
         // cenario
         Depoimento depoimento = Depoimento.builder()
                 .id_depoimento(1)
@@ -84,10 +84,10 @@ public class DepoimentoControllerTeste {
                 .build();
         // mock salvar
         Mockito.when(service.salvar(Mockito.any(Depoimento.class))).thenReturn(depoimento);
-        // mock deletar
+        // mock remover
         Mockito.when(service.remover(Mockito.anyInt())).thenReturn(depoimento);
         // ação
-        MockHttpServletRequestBuilder response = MockMvcRequestBuilders.delete(API.concat("/deletar/1"))
+        MockHttpServletRequestBuilder response = MockMvcRequestBuilders.delete(API.concat("/remover/1"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON);
         // ação e verificação
@@ -96,7 +96,7 @@ public class DepoimentoControllerTeste {
     }
     
     @Test  
-    public void deveEditarDepoimento() throws Exception{
+    public void deveAtualizarDepoimento() throws Exception{
         // cenario
         DepoimentoDto dto = DepoimentoDto.builder()
         .id(1)
@@ -108,8 +108,8 @@ public class DepoimentoControllerTeste {
         Mockito.when(service.salvar(
                 Mockito.any(Depoimento.class))).thenReturn(Depoimento.builder().build());
 
-        // mock editar
-        Mockito.when(service.editar(
+        // mock atualizar
+        Mockito.when(service.atualizar(
                 Mockito.any(Depoimento.class))).thenReturn(Depoimento.builder().build());
 
         // converte o dto para json
@@ -119,7 +119,7 @@ public class DepoimentoControllerTeste {
                 .writeValueAsString(dto);
 
         // ação
-        MockHttpServletRequestBuilder response = MockMvcRequestBuilders.put(API.concat("/editar/1"))
+        MockHttpServletRequestBuilder response = MockMvcRequestBuilders.put(API.concat("/atualizar/1"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(json);
@@ -129,7 +129,7 @@ public class DepoimentoControllerTeste {
     }
 
     @Test
-    public void deveObterDepoimento() throws Exception {
+    public void deveBuscarDepoimento() throws Exception {
         // cenario
         List<Depoimento> depoimentos = new ArrayList<>();
         depoimentos.add(Depoimento.builder().build());
@@ -140,7 +140,7 @@ public class DepoimentoControllerTeste {
         Mockito.when(service.buscar(Mockito.any(Depoimento.class))).thenReturn(depoimentos);
 
         // ação
-        MockHttpServletRequestBuilder response = MockMvcRequestBuilders.get(API.concat("/obter/1"))
+        MockHttpServletRequestBuilder response = MockMvcRequestBuilders.get(API.concat("/buscar/1"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON);
         // ação e verificação
@@ -149,8 +149,7 @@ public class DepoimentoControllerTeste {
     }
 
     @Test
-    public void deveObterDepoimentoPorEgresso() throws Exception {
-        // esse método é para obter os depoimentos de um egresso específico e não de todos os depoimentos do sistema
+    public void deveBuscarDepoimentoPorEgresso() throws Exception {
         // cenario
         List<EgressoDepoimentoDto> depoimentos = new ArrayList<>();
         depoimentos.add(EgressoDepoimentoDto.builder().build());
@@ -161,7 +160,7 @@ public class DepoimentoControllerTeste {
         Mockito.when(service.buscarPorEgresso(Mockito.anyInt())).thenReturn(depoimentos);
 
         // ação
-        MockHttpServletRequestBuilder response = MockMvcRequestBuilders.get(API.concat("/obter-por-egresso/1"))
+        MockHttpServletRequestBuilder response = MockMvcRequestBuilders.get(API.concat("/buscar-por-egresso/1"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON);
         // ação e verificação
@@ -171,7 +170,7 @@ public class DepoimentoControllerTeste {
     }
 
     @Test
-    public void deveObterDepoimentosRecentes() throws Exception {
+    public void deveBuscarDepoimentosRecentes() throws Exception {
         // cenario
         List<Depoimento> depoimentos = new ArrayList<>();
         depoimentos.add(Depoimento.builder().build());
@@ -182,7 +181,7 @@ public class DepoimentoControllerTeste {
         Mockito.when(service.buscarRecente()).thenReturn(depoimentos);
 
         // ação
-        MockHttpServletRequestBuilder response = MockMvcRequestBuilders.get(API.concat("/obter-recente"))
+        MockHttpServletRequestBuilder response = MockMvcRequestBuilders.get(API.concat("/buscar-recente"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON);
         // ação e verificação

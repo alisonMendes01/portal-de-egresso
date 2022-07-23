@@ -25,34 +25,34 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Table(name= "prof_egresso")
+@Table(name = "prof_egresso")
 public class ProfEgresso {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_prof_egresso")
     private Integer id_prof_egresso;
-    
+
     @ManyToOne
-    @JoinColumn(name="egresso_id")
+    @JoinColumn(name = "egresso_id")
     private Egresso egresso_id;
-    
+
     @ManyToOne
-    @JoinColumn(name="cargo_id")
+    @JoinColumn(name = "cargo_id")
     private Cargo cargo_id;
-    
+
     @ManyToOne
-    @JoinColumn(name="faixa_salario_id")
+    @JoinColumn(name = "faixa_salario_id")
     private FaixaSalario faixa_salario_id;
 
-    @Column(name = "data_registro")   
+    @Column(name = "data_registro")
     @Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
     private LocalDate data_registro;
 
-    @Column(name="empresa")
+    @Column(name = "empresa")
     private String empresa;
-    
-    @Column(name="descricao")
+
+    @Column(name = "descricao")
     private String descricao;
 
 }

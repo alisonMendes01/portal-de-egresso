@@ -17,5 +17,5 @@ public interface FaixaSalarioRepo
                 + "INNER JOIN FaixaSalario fs "
                 + "ON fs.id_faixa_salario = pe.faixa_salario_id "
                 + "WHERE fs.id_faixa_salario = :idFaixaSalario")
-        public Integer countEgressosByFaixaSalario(@Param("idFaixaSalario") Integer idFaixaSalario);
+        public Integer contarEgressosPorFaixaSalario(@Param("idFaixaSalario") Integer idFaixaSalario);
 }

@@ -40,9 +40,9 @@ public class DepoimentoController {
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-    }  
-    
-    @PutMapping("/editar/{id}")
+    }
+
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity atualizar(@PathVariable Integer id, @RequestBody DepoimentoDto dto) {
         Depoimento depoimento = Depoimento.builder()
                 .id_depoimento(id)
@@ -50,16 +50,15 @@ public class DepoimentoController {
                 .data(dto.getData())
                 .build();
         try {
-            Depoimento salvo = service.editar(depoimento);
+            Depoimento salvo = service.atualizar(depoimento);
             return ResponseEntity.status(HttpStatus.OK).body(salvo);
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletar(@PathVariable(value = "id", required = true) Integer id) {
-        /* Criando o o Cargo para deletar */
+    @DeleteMapping("/remover/{id}")
+    public ResponseEntity remover(@PathVariable(value = "id", required = true) Integer id) {
         try {
             Depoimento depoimento = Depoimento.builder().id_depoimento(id).build();
             service.remover(depoimento);
@@ -69,8 +68,8 @@ public class DepoimentoController {
         }
     }
 
-    @GetMapping("/obter/{id}")
-    public ResponseEntity obter(
+    @GetMapping("/buscar/{id}")
+    public ResponseEntity buscar(
             @PathVariable(value = "id", required = true) Integer id) {
 
         Depoimento filtro = Depoimento.builder().id_depoimento(id).build();
@@ -79,10 +78,10 @@ public class DepoimentoController {
         return ResponseEntity.ok(depoimentos);
     }
 
-    @GetMapping("/obter-por-egresso/{id}")
-    public ResponseEntity obterporegresso( 
+    @GetMapping("/buscar-por-egresso/{id}")
+    public ResponseEntity buscarPorEgresso(
             @PathVariable("id") Integer id) {
-        try{
+        try {
             List<EgressoDepoimentoDto> cargo = service.buscarPorEgresso(id);
             return ResponseEntity.ok(cargo);
         } catch (RegraNegocioRunTime e) {
@@ -90,12 +89,12 @@ public class DepoimentoController {
         }
     }
 
-    @GetMapping("/obter-recente")
-    public ResponseEntity obterRecentes(){
-        try{
-            List<Depoimento> recentes  = service.buscarRecente();
+    @GetMapping("/buscar-recente")
+    public ResponseEntity buscarRecentes() {
+        try {
+            List<Depoimento> recentes = service.buscarRecente();
             return ResponseEntity.ok(recentes);
-        }catch (RegraNegocioRunTime e) {
+        } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

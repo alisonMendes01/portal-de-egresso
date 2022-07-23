@@ -23,20 +23,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Table(name= "cargo")
+@Table(name = "cargo")
 public class Cargo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cargo")
     private Integer id_cargo;
-    
-    @OneToMany(mappedBy="cargo_id")
+
+    @OneToMany(mappedBy = "cargo_id")
     @JsonIgnore
     private List<ProfEgresso> profEgresso;
 
-    @Column(name="nome")
+    @Column(name = "nome")
     private String nome;
-    
-    @Column(name="descricao")
+
+    @Column(name = "descricao")
     private String descricao;
 }

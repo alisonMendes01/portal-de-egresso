@@ -21,17 +21,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Table(name= "faixa_salario")
+@Table(name = "faixa_salario")
 public class FaixaSalario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_faixa_salario")
     private Integer id_faixa_salario;
-    
-    @OneToMany(mappedBy= "faixa_salario_id")
-    private List<ProfEgresso>profEgresso;
-    
-    @Column(name="descricao")
+
+    @OneToMany(mappedBy = "faixa_salario_id")
+    private List<ProfEgresso> profEgresso;
+
+    @Column(name = "descricao")
     private String descricao;
-    
-}    
+
+}

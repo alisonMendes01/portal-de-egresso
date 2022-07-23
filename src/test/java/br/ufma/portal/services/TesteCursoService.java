@@ -46,7 +46,7 @@ public class TesteCursoService {
     }
 
     @Test
-    public void deveObterEgressoPorCurso() {
+    public void deveBuscarEgressoPorCurso() {
         Egresso egresso1 = Egresso.builder()
                 .nome("Maria")
                 .email("email@email.com")
@@ -75,13 +75,13 @@ public class TesteCursoService {
         Egresso retornoEgresso3 = repoEgresso.save(egresso3);
 
         Curso curso1 = Curso.builder()
-                .nome("microllins")
+                .nome("CursoTeste")
                 .nivel("avançado")
                 .build();
         Curso retornoCurso1 = repoCurso.save(curso1);
 
         Curso curso2 = Curso.builder()
-                .nome("microllins")
+                .nome("CursoTeste")
                 .nivel("avançado")
                 .build();
         Curso retornoCurso2 = repoCurso.save(curso2);
@@ -110,16 +110,17 @@ public class TesteCursoService {
                 .build();
         CursoEgresso retornoCursoEgresso3 = repoCursoEgresso.save(cursoEgresso3);
 
-        List<Egresso> egressos = service.findByEgresso(curso1.getId_curso());
+        List<Egresso> egressos = service.buscarPorEgresso(curso1.getId_curso());
 
         int index = 1;
         for (Egresso egresso : egressos) {
             System.out.println("EGRESSO " + (index++) + ": " + egresso.getNome());
         }
+
     }
 
     @Test
-    public void deveObterNumeroEgressosByCurso() {
+    public void deveBuscarNumeroEgressosByCurso() {
         Egresso egresso1 = Egresso.builder()
                 .nome("Maria")
                 .email("email@email.com")
@@ -148,13 +149,13 @@ public class TesteCursoService {
         Egresso retornoEgresso3 = repoEgresso.save(egresso3);
 
         Curso curso1 = Curso.builder()
-                .nome("microllins")
+                .nome("CursoTeste")
                 .nivel("avançado")
                 .build();
         Curso retornoCurso1 = repoCurso.save(curso1);
 
         Curso curso2 = Curso.builder()
-                .nome("microllins")
+                .nome("CursoTeste")
                 .nivel("avançado")
                 .build();
         Curso retornoCurso2 = repoCurso.save(curso2);
@@ -183,7 +184,7 @@ public class TesteCursoService {
                 .build();
         CursoEgresso retornoCursoEgresso3 = repoCursoEgresso.save(cursoEgresso3);
 
-        Integer numeroEgressos = service.countEgressosByCurso(curso1.getId_curso());
+        Integer numeroEgressos = service.contarEgressosPorCurso(curso1.getId_curso());
         System.out.println("NUMERO DE EGRESSOS NO CURSO " + curso1.getNome() +": "+ numeroEgressos);
     }
 }

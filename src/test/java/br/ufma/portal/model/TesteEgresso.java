@@ -12,13 +12,13 @@ import br.ufma.portal.model.repository.EgressoRepo;
 @SpringBootTest
 public class TesteEgresso {
     @Autowired
-    public
-    EgressoRepo repo;
+    public EgressoRepo repo;
 
     @Test
-    public void devecriaEgresso(){
-        //cenario
-        Egresso novo = Egresso.builder().nome("CriarEgresso").email("email@email.com").cpf("000").resumo("resumo").url_foto("urlaqui").build();
+    public void devecriaEgresso() {
+        // cenario
+        Egresso novo = Egresso.builder().nome("CriarEgresso").email("email@email.com").cpf("000").resumo("resumo")
+                .url_foto("urlaqui").build();
 
         // acao
         Egresso retorno = repo.save(novo);
@@ -29,41 +29,41 @@ public class TesteEgresso {
         Assertions.assertEquals(novo.getCpf(), retorno.getCpf());
         Assertions.assertEquals(novo.getEmail(), retorno.getEmail());
         Assertions.assertEquals(novo.getResumo(), retorno.getResumo());
-        //Rollback
+        // Rollback
         repo.delete(retorno);
     }
 
     @Test
-    public void deveremoverEgresso(){
-        //cenario
-        Egresso novo = Egresso.builder().nome("RemoverEgresso").cpf("123").email("a@a.com").resumo("resumo abc").build();
+    public void deveremoverEgresso() {
+        // cenario
+        Egresso novo = Egresso.builder().nome("RemoverEgresso").cpf("123").email("a@a.com").resumo("resumo abc")
+                .build();
         Egresso retorno = repo.save(novo);
-        
+
         // acao
         Integer id = retorno.getId_egresso();
         repo.deleteById(id);
-        
-        //verificação
-        Optional<Egresso> temp = repo.findById(id);  
+
+        // verificação
+        Optional<Egresso> temp = repo.findById(id);
         Assertions.assertFalse(temp.isPresent());
     }
 
     @Test
-    public void deveobterEgresso(){
-        //cenario
-        Egresso novo = Egresso.builder().nome("RemoverEgresso").cpf("123").email("a@a.com").resumo("resumo abc").build();
+    public void deveBuscarEgresso() {
+        // cenario
+        Egresso novo = Egresso.builder().nome("BuscarEgresso").cpf("123").email("a@a.com").resumo("resumo abc").build();
         Egresso retorno = repo.save(novo);
 
         // acao
         Optional<Egresso> temp = repo.findById(retorno.getId_egresso());
-        
+
         // verificacao
         Assertions.assertTrue(temp.isPresent());
 
-        //Rollback
+        // Rollback
         repo.delete(retorno);
 
     }
-
 
 }

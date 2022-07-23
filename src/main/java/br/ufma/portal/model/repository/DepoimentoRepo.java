@@ -15,7 +15,7 @@ import br.ufma.portal.model.dto.EgressoDepoimentoDto;
 public interface DepoimentoRepo
         extends JpaRepository<Depoimento, Integer> {
                 @Query("select new br.ufma.portal.model.dto.EgressoDepoimentoDto(d.id_depoimento, d.texto, d.data) from Depoimento d inner join  d.egresso_id e where e.id_egresso = :idEgresso")
-                public List<EgressoDepoimentoDto> obterDepoimentoPorEgresso(@Param("idEgresso") Integer idEgresso);
+                public List<EgressoDepoimentoDto> buscarDepoimentoPorEgresso(@Param("idEgresso") Integer idEgresso);
                 public List<Depoimento> findAllByOrderByDataDesc();
 
 }

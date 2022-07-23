@@ -58,24 +58,24 @@ public class TesteEgressoService {
     EgressoService service;
 
     @Test
-    public void deveEditarNome() {
-        Egresso novo = Egresso.builder().nome("Maria de Jesus")
+    public void deveAtualizarNome() {
+        Egresso novo = Egresso.builder().nome("Maria")
                 .cpf("123")
                 .email("a@a.com")
                 .resumo("resumo abc")
                 .build();
         Egresso retornoEgresso = repoEgresso.save(novo);
-        //Egresso retorno = service.editarEgressoNome(retornoEgresso.getId_egresso(), "Nome editado");
-        Egresso retorno = service.editarEgressoNome(retornoEgresso.getId_egresso(), "Nome editado");
+
+        Egresso retorno = service.atualizarEgressoNome(retornoEgresso.getId_egresso(), "Nome editado");
 
         Assertions.assertNotEquals(retornoEgresso.getNome(), retorno.getNome());
 
     }
 
     @Test
-    public void deveEditarContato() {
+    public void deveAtualizarContato() {
         // cenario
-        Egresso novo = Egresso.builder().nome("Maria de Jesus")
+        Egresso novo = Egresso.builder().nome("Maria")
                 .cpf("123")
                 .email("a@a.com")
                 .resumo("resumo abc")
@@ -83,7 +83,7 @@ public class TesteEgressoService {
         Egresso retornoEgresso = repoEgresso.save(novo);
 
         Contato novoContato = Contato.builder()
-                .nome("jesus_maria")
+                .nome("teste_maria")
                 .url_logo("instagram.com/")
                 .build();
         Contato retornoContato = repoContato.save(novoContato);
@@ -100,15 +100,15 @@ public class TesteEgressoService {
                 .url_logo("instagram.com/contato")
                 .build();
         // ação
-        service.editarEgressoContato(retornoEgresso.getId_egresso(), retornoContato.getId_contato(), atualizarContato);
+        service.atualizarEgressoContato(retornoEgresso.getId_egresso(), retornoContato.getId_contato(), atualizarContato);
         
 
     }
 
     @Test
-    public void deveEditarCurso() {
+    public void deveAtualizarCurso() {
         // cenario
-        Egresso novo = Egresso.builder().nome("Maria de Jesus")
+        Egresso novo = Egresso.builder().nome("Maria")
                 .cpf("123")
                 .email("a@a.com")
                 .resumo("resumo abc")
@@ -134,14 +134,14 @@ public class TesteEgressoService {
                 .nivel("MESTRADO")
                 .build();
         // ação
-        service.editarEgressoCurso(retornoEgresso.getId_egresso(), retornoCurso.getId_curso(), atualizarCurso);
+        service.atualizarEgressoCurso(retornoEgresso.getId_egresso(), retornoCurso.getId_curso(), atualizarCurso);
         
 
     }
     
     @Test
-    public void deveEditarFaixaSalario(){
-        Egresso novo = Egresso.builder().nome("Maria de Jesus")
+    public void deveAtualizarFaixaSalario(){
+        Egresso novo = Egresso.builder().nome("Maria")
                 .cpf("123")
                 .email("a@a.com")
                 .resumo("resumo abc")
@@ -174,13 +174,13 @@ public class TesteEgressoService {
                 .descricao("Atualizado")
                 .build();
         // ação
-        service.editarEgressoFaixaSalario(retornoEgresso.getId_egresso(), retornoFaixaSalario.getId_faixa_salario() , atualizarFaixaSalario);
+        service.atualizarEgressoFaixaSalario(retornoEgresso.getId_egresso(), retornoFaixaSalario.getId_faixa_salario() , atualizarFaixaSalario);
         
     }
 
     @Test
-    public void deveEditarCargo() {
-        Egresso egresso = Egresso.builder().nome("Maria de Jesus")
+    public void deveAtualizarrCargo() {
+        Egresso egresso = Egresso.builder().nome("Maria")
                 .cpf("123")
                 .email("a@a.com")
                 .resumo("resumo abc")
@@ -214,6 +214,6 @@ public class TesteEgressoService {
                                 .descricao("descricao")
                                 .build();
 
-        service.editarEgressoCargo(retornoEgresso.getId_egresso(), retornoCargo.getId_cargo(), atualizaCargo);
+        service.atualizarEgressoCargo(retornoEgresso.getId_egresso(), retornoCargo.getId_cargo(), atualizaCargo);
     }
 }

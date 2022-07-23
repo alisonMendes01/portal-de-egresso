@@ -20,7 +20,7 @@ public interface CursoRepo
                 +"INNER JOIN Curso c "
                 +"ON c.id_curso = ce.curso_id "
                 +"WHERE c.id_curso = :idCurso")
-        public List<Egresso> findByEgresso(@Param("idCurso") Integer idCurso);
+        public List<Egresso> buscarPorEgresso(@Param("idCurso") Integer idCurso);
 
         @Query("SELECT COUNT(e) FROM Egresso e "
                 + "INNER JOIN CursoEgresso ce "
@@ -28,5 +28,5 @@ public interface CursoRepo
                 + "INNER JOIN Curso c "
                 + "ON c.id_curso = ce.curso_id "
                 + "WHERE c.id_curso = :idCurso")
-        public Integer countEgressosByCurso(@Param("idCurso") Integer idCurso);
+        public Integer contarEgressosPorCurso(@Param("idCurso") Integer idCurso); // conta 
 }

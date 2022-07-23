@@ -77,7 +77,7 @@ public class EgressoControllerTeste {
     }
 
     @Test
-    public void deveDeletarEgresso() throws Exception { 
+    public void deveRemoverEgresso() throws Exception { 
         // cenário
         Egresso egresso = Egresso.builder()
                 .nome("Egresso Teste")
@@ -90,12 +90,12 @@ public class EgressoControllerTeste {
         Mockito.when(service.salvar(
                 Mockito.any(Egresso.class))).thenReturn(egresso);
 
-        // mock deletar
+        // mock remover
         Mockito.when(service.remover(
                 Mockito.anyInt())).thenReturn(egresso);
 
         // ação
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.delete(API.concat("/deletar/1"))
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.delete(API.concat("/remover/1"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
         // ação e verificação
@@ -104,18 +104,18 @@ public class EgressoControllerTeste {
     }
 
     @Test
-    public void deveObterEgresso() throws Exception {
+    public void deveBuscarEgresso() throws Exception {
         //cenário
         List<Egresso> egressos = new ArrayList<>();
         egressos.add(Egresso.builder().build());
         egressos.add(Egresso.builder().build());
         egressos.add(Egresso.builder().build());
 
-        // mock obter
+        // mock buscar
         Mockito.when(service.buscar(Mockito.any(Egresso.class))).thenReturn(egressos);
 
          //ação
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(API.concat("/obter/1"))
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(API.concat("/buscar/1"))
                 .accept(MediaType.APPLICATION_JSON);
 
         // ação e verificação
@@ -138,14 +138,14 @@ public class EgressoControllerTeste {
                 Mockito.any(Egresso.class))).thenReturn(Egresso.builder().build());
 
         // mock atualizar
-        Mockito.when(service.editar(
+        Mockito.when(service.atualizar(
                 Mockito.any(Egresso.class))).thenReturn(Egresso.builder().build());
 
         // converte dto para json
         String json = new ObjectMapper().writeValueAsString(dto);
 
         // ação
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put(API.concat("/editar/1"))
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put(API.concat("/atualizar/1"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
@@ -156,7 +156,7 @@ public class EgressoControllerTeste {
     }
 
     @Test
-    public void deveEditarContato() throws Exception {
+    public void deveAtualizarContato() throws Exception {
         // cenario
         EgressoDto dto = EgressoDto.builder()
                 .nome("Egresso Teste")
@@ -170,14 +170,14 @@ public class EgressoControllerTeste {
                 Mockito.any(Egresso.class))).thenReturn(Egresso.builder().build());
 
         // mock atualizar contato egresso 
-        Mockito.when(service.editarEgressoContato(
+        Mockito.when(service.atualizarEgressoContato(
                 Mockito.anyInt(), Mockito.anyInt(), Mockito.any(Contato.class))).thenReturn(Contato.builder().build());
 
         // converte dto para json
         String json = new ObjectMapper().writeValueAsString(dto);
 
         // ação
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put(API.concat("/editar/contato/1&1"))
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put(API.concat("/atualizar/contato/1&1"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
@@ -189,7 +189,7 @@ public class EgressoControllerTeste {
        
 
     @Test
-    public void deveEditarCargo() throws Exception {
+    public void deveAtualizarCargo() throws Exception {
         // cenario
         EgressoDto dto = EgressoDto.builder()
                 .nome("Egresso Teste")
@@ -203,14 +203,14 @@ public class EgressoControllerTeste {
                 Mockito.any(Egresso.class))).thenReturn(Egresso.builder().build());
 
         // mock atualizar cargo egresso
-        Mockito.when(service.editarEgressoCargo(
+        Mockito.when(service.atualizarEgressoCargo(
                 Mockito.anyInt(), Mockito.anyInt(), Mockito.any(Cargo.class))).thenReturn(Cargo.builder().build());
 
         // converte dto para json
         String json = new ObjectMapper().writeValueAsString(dto);
 
         // ação
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put(API.concat("/editar/cargo/1&1"))
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put(API.concat("/atualizar/cargo/1&1"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
@@ -220,7 +220,7 @@ public class EgressoControllerTeste {
     }
 
     @Test
-    public void deveEditarFaixaSalario() throws Exception {
+    public void deveAtualizarFaixaSalario() throws Exception {
         // cenario
         EgressoDto dto = EgressoDto.builder()
                 .nome("Egresso Teste")
@@ -232,14 +232,14 @@ public class EgressoControllerTeste {
         Mockito.when(service.salvar(
                 Mockito.any(Egresso.class))).thenReturn(Egresso.builder().build());
         // mock atualizar faixa salario egresso
-        Mockito.when(service.editarEgressoFaixaSalario(
+        Mockito.when(service.atualizarEgressoFaixaSalario(
                 Mockito.anyInt(), Mockito.anyInt(), Mockito.any(FaixaSalario.class))).thenReturn(FaixaSalario.builder().build());
                 
         // converte dto para json
         String json = new ObjectMapper().writeValueAsString(dto);
 
         // ação
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put(API.concat("/editar/faixasalario/1&1"))
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put(API.concat("/atualizar/faixasalario/1&1"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
@@ -250,7 +250,7 @@ public class EgressoControllerTeste {
     }
 
     @Test
-    public void deveEditarCurso() throws Exception {
+    public void deveAtualizarCurso() throws Exception {
         // cenario
         EgressoDto dto = EgressoDto.builder()
                 .nome("Egresso Teste")
@@ -262,14 +262,14 @@ public class EgressoControllerTeste {
         Mockito.when(service.salvar(
                 Mockito.any(Egresso.class))).thenReturn(Egresso.builder().build());
         // mock atualizar curso egresso
-        Mockito.when(service.editarEgressoCurso(
+        Mockito.when(service.atualizarEgressoCurso(
                 Mockito.anyInt(), Mockito.anyInt(), Mockito.any(Curso.class))).thenReturn(Curso.builder().build());
                 
         // converte dto para json
         String json = new ObjectMapper().writeValueAsString(dto);
 
         // ação
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put(API.concat("/editar/curso/1&1"))
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put(API.concat("/atualizar/curso/1&1"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);

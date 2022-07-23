@@ -21,7 +21,7 @@ import br.ufma.portal.service.exception.RegraNegocioRunTime;
 
 @RestController
 @RequestMapping("/api/cargo")
-@SuppressWarnings({"rawtypes", "unchecked"})
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class CargoController {
 
     @Autowired
@@ -29,7 +29,6 @@ public class CargoController {
 
     @PostMapping("/salvar")
     public ResponseEntity salvar(@RequestBody CargoDto dto) {
-        /* Montando o cargo que vem do front */
         Cargo cargo = Cargo.builder()
                 .nome(dto.getNome())
                 .descricao(dto.getDescricao())
@@ -42,9 +41,8 @@ public class CargoController {
         }
     }
 
-    @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletar(@PathVariable(value = "id", required = true) Integer id) {
-        /* Criando o o Cargo para deletar */
+    @DeleteMapping("/remover/{id}")
+    public ResponseEntity remover(@PathVariable(value = "id", required = true) Integer id) {
         try {
             Cargo cargo = Cargo.builder().id_cargo(id).build();
             service.remover(cargo);
@@ -53,9 +51,9 @@ public class CargoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    
-    @GetMapping("/obter/{id}")
-    public ResponseEntity obter(
+
+    @GetMapping("/buscar/{id}")
+    public ResponseEntity buscar(
             @PathVariable(value = "id", required = true) Integer id) {
 
         Cargo filtro = Cargo.builder().id_cargo(id).build();
@@ -63,8 +61,8 @@ public class CargoController {
 
         return ResponseEntity.ok(cargo);
     }
-    
-    @PutMapping("/editar/{id}")
+
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity atualizar(
             @PathVariable("id") Integer id_cargo,
             @RequestBody CargoDto dto) {
@@ -74,33 +72,31 @@ public class CargoController {
                     .nome(dto.getNome())
                     .descricao(dto.getDescricao())
                     .build();
-            Cargo salvo = service.editar(cargo);
+            Cargo salvo = service.atualizar(cargo);
             return ResponseEntity.ok(salvo);
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    
-    
-    @GetMapping("/obter-por-egresso/{id}")
-    public ResponseEntity obterporegresso(
+
+    @GetMapping("/buscar-por-egresso/{id}")
+    public ResponseEntity buscarPorEgresso(
             @PathVariable("id") Integer id) {
-        try{
-            List<Cargo> cargo = service.findByEgresso(id);
+        try {
+            List<Cargo> cargo = service.buscarPorEgresso(id);
             return ResponseEntity.ok(cargo);
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @GetMapping("/contar-por-egresso/{id}")
-    public ResponseEntity countCargoPorEgresso(
-         @PathVariable("id") Integer id
-    ){
-        try{
-            Integer qtdCargos = service.countEgressosByCargo(id);
+    @GetMapping("/contar-egressos-por-cargo/{id}")
+    public ResponseEntity contarEgressosPorCargo(
+            @PathVariable("id") Integer id) {
+        try {
+            Integer qtdCargos = service.contarEgressosPorCargo(id);
             return ResponseEntity.ok(qtdCargos);
-        } catch (RegraNegocioRunTime e){
+        } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

@@ -41,9 +41,8 @@ public class CursoController {
         }
     }
 
-    @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletar(@PathVariable(value = "id", required = true) Integer id) {
-        /* Criando o o Cargo para deletar */
+    @DeleteMapping("/remover/{id}")
+    public ResponseEntity remover(@PathVariable(value = "id", required = true) Integer id) {
         try {
             Curso curso = Curso.builder().id_curso(id).build();
             service.remover(curso);
@@ -53,10 +52,10 @@ public class CursoController {
         }
     }
 
-    @GetMapping("/obter/{id}")
-    public ResponseEntity obter(
+    @GetMapping("/buscar/{id}")
+    public ResponseEntity buscar(
             @PathVariable(value = "id", required = true) Integer id) {
-        try{
+        try {
             Curso filtro = Curso.builder().id_curso(id).build();
             List<Curso> cargo = service.buscar(filtro);
             return ResponseEntity.ok(cargo);
@@ -65,8 +64,7 @@ public class CursoController {
         }
     }
 
-
-    @PutMapping("/editar/{id}")
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity atualizar(
             @PathVariable("id") Integer id,
             @RequestBody CursoDto dto) {
@@ -76,32 +74,31 @@ public class CursoController {
                     .nome(dto.getNome())
                     .nivel(dto.getNivel())
                     .build();
-            Curso salvo = service.editar(curso);
+            Curso salvo = service.atualizar(curso);
             return ResponseEntity.ok(salvo);
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    
-    @GetMapping("/obter-por-egresso/{id}")
-    public ResponseEntity obterPorEgresso(
+
+    @GetMapping("/buscar-por-egresso/{id}")
+    public ResponseEntity buscarPorEgresso(
             @PathVariable("id") Integer id) {
-        try{
-            List<Egresso> egresso = service.findByEgresso(id);
+        try {
+            List<Egresso> egresso = service.buscarPorEgresso(id);
             return ResponseEntity.ok(egresso);
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @GetMapping("/contar-por-egresso/{id}")
-    public ResponseEntity countEgressoPorCurso(
-         @PathVariable("id") Integer id
-    ){
-        try{
-            Integer qtdEgressos= service.countEgressosByCurso(id);
+    @GetMapping("/contar-egressos-por-curso/{id}")
+    public ResponseEntity contarEgressosPorCurso(
+            @PathVariable("id") Integer id) {
+        try {
+            Integer qtdEgressos = service.contarEgressosPorCurso(id);
             return ResponseEntity.ok(qtdEgressos);
-        } catch (RegraNegocioRunTime e){
+        } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

@@ -27,15 +27,14 @@ public class Curso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_curso")
     private Integer id_curso;
-    
-    @OneToMany(mappedBy= "curso_id")
+
+    @OneToMany(mappedBy = "curso_id")
     private List<CursoEgresso> cursoEgressos;
-    
-    @Column(name="nome")
+
+    @Column(name = "nome")
     private String nome;
-    
-    @Column(name="nivel")
+
+    @Column(name = "nivel")
     private String nivel;
 
 }
-

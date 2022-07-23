@@ -24,7 +24,7 @@ public class FaixaSalarioService {
     public void verificaFaixaSalario(FaixaSalario faixaSalario) {
         if (faixaSalario == null)
             throw new RegraNegocioRunTime("O FaixaSalario não pode ser nulo!");
-            
+
         if ((faixaSalario.getDescricao() == null) || (faixaSalario.getDescricao().equals("")))
             throw new RegraNegocioRunTime("Deve haver um texto");
     }
@@ -41,7 +41,7 @@ public class FaixaSalarioService {
     }
 
     @Transactional
-    public FaixaSalario editar(FaixaSalario faixaSalario) {
+    public FaixaSalario atualizar(FaixaSalario faixaSalario) {
         verificaId(faixaSalario);
         return salvar(faixaSalario);
     }
@@ -61,15 +61,15 @@ public class FaixaSalarioService {
     }
 
     @Transactional
-    public Integer countEgressosByFaixaSalario(Integer idFaixaSalario) {
-        return repo.countEgressosByFaixaSalario(idFaixaSalario);
+    public Integer contarEgressosPorFaixaSalario(Integer idFaixaSalario) {
+        return repo.contarEgressosPorFaixaSalario(idFaixaSalario);
     }
 
     @Transactional
-    public List<FaixaSalario> buscar(FaixaSalario filtro){
-            Example<FaixaSalario> example = Example.of(filtro, ExampleMatcher.matching()
-            .withIgnoreCase()
-            .withStringMatcher(StringMatcher.CONTAINING));
+    public List<FaixaSalario> buscar(FaixaSalario filtro) {
+        Example<FaixaSalario> example = Example.of(filtro, ExampleMatcher.matching()
+                .withIgnoreCase()
+                .withStringMatcher(StringMatcher.CONTAINING));
         return repo.findAll(example);
     }
 

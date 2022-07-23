@@ -16,10 +16,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 
-public class ContatoEgressoPk implements Serializable{
-    @Column(name= "id_egresso")  
+public class ContatoEgressoPk implements Serializable {
+    @Column(name = "id_egresso")
     private Integer id_egresso;
-    
+
     @Column(name = "id_contato")
     private Integer id_contato;
 }

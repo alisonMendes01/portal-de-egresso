@@ -19,15 +19,15 @@ public interface CargoRepo
                 + "INNER JOIN Egresso e "
                 + "ON e.id_egresso = pe.egresso_id "
                 + "WHERE e.id_egresso = :idEgresso")
-        public List<Cargo> findByEgresso(@Param("idEgresso") Integer idEgresso);
+        public List<Cargo> buscarPorEgresso(@Param("idEgresso") Integer idEgresso);
         
         @Query("SELECT COUNT(e) FROM Egresso e "
                 + "INNER JOIN ProfEgresso pe "
                 + "ON e.id_egresso = pe.egresso_id "
                 + "INNER JOIN Cargo c "
                 + "ON c.id_cargo = pe.cargo_id "
-                + "WHERE c.id_cargo = :idCargo")
-        public Integer countEgressosByCargo(@Param("idCargo") Integer idCargo);
+                + "WHERE c.id_cargo = :idCargo") 
+        public Integer contarEgressosPorCargo(@Param("idCargo") Integer idCargo); 
 
 }
 

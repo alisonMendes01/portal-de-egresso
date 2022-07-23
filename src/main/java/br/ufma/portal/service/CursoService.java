@@ -45,7 +45,7 @@ public class CursoService {
     }
 
     @Transactional
-    public Curso editar(Curso curso) {
+    public Curso atualizar(Curso curso) {
         verificaId(curso);
         return salvar(curso);
     }
@@ -65,13 +65,13 @@ public class CursoService {
     }
 
     @Transactional
-    public List<Egresso> findByEgresso(Integer idCurso) {
-        return repo.findByEgresso(idCurso);
+    public List<Egresso> buscarPorEgresso(Integer idCurso) {
+        return repo.buscarPorEgresso(idCurso);
     }
 
     @Transactional
-    public Integer countEgressosByCurso(Integer idCurso) {
-        return repo.countEgressosByCurso(idCurso);
+    public Integer contarEgressosPorCurso(Integer idCurso) {
+        return repo.contarEgressosPorCurso(idCurso);
     }
 
     @Transactional

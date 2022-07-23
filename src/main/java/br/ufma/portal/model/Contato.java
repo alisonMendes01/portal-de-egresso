@@ -2,7 +2,6 @@ package br.ufma.portal.model;
 
 import java.util.List;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -36,14 +35,8 @@ public class Contato {
 
     @Column(name = "url_logo")
     private String url_logo;
-    
-    
-     @OneToMany(mappedBy = "egresso_id")
-     private List<ContatoEgresso> contatosEgresso;
-   
-    /*
-    @ManyToMany(mappedBy = "contatos", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<Egresso> egressos;
-    */
-} 
 
+    @OneToMany(mappedBy = "egresso_id")
+    private List<ContatoEgresso> contatosEgresso;
+
+}

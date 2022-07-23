@@ -21,34 +21,34 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Table(name="egresso")
+@Table(name = "egresso")
 public class Egresso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_egresso")
     private Integer id_egresso;
 
-    @OneToMany(mappedBy ="contato_id")
+    @OneToMany(mappedBy = "contato_id")
     private List<ContatoEgresso> contatosEgresso;
 
-    @OneToMany(mappedBy="egresso_id")
+    @OneToMany(mappedBy = "egresso_id")
     private List<Depoimento> depoimentos;
 
     @OneToMany(mappedBy = "egresso_id")
     private List<ProfEgresso> profEgresso;
 
-    @Column(name="nome")
+    @Column(name = "nome")
     private String nome;
-    
-    @Column(name="email")
+
+    @Column(name = "email")
     private String email;
-    
-    @Column(name="cpf")
+
+    @Column(name = "cpf")
     private String cpf;
-    
-    @Column(name="resumo")
+
+    @Column(name = "resumo")
     private String resumo;
 
-    @Column(name="url_foto")
+    @Column(name = "url_foto")
     private String url_foto;
 }

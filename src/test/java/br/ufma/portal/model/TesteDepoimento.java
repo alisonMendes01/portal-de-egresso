@@ -15,96 +15,91 @@ import br.ufma.portal.model.repository.EgressoRepo;
 @SpringBootTest
 public class TesteDepoimento {
     @Autowired
-    public
-    DepoimentoRepo repoDepoimento;
-    
+    public DepoimentoRepo repoDepoimento;
+
     @Autowired
-    public
-    EgressoRepo repoEgresso;
+    public EgressoRepo repoEgresso;
 
     @Test
-    public void devecriaDepoimento(){
-        //cenario
+    public void devecriaDepoimento() {
+        // cenario
         Egresso novo = Egresso.builder().nome("EgressoDeDepoimento")
-        .email("email@email.com")
-        .cpf("000")
-        .resumo("resumo")
-        .url_foto("urlaqui")
-        .build();
+                .email("email@email.com")
+                .cpf("000")
+                .resumo("resumo")
+                .url_foto("urlaqui")
+                .build();
         Egresso retornoEgresso = repoEgresso.save(novo);
 
         Depoimento novoDepoimento = Depoimento.builder().texto("texto")
-        .data(LocalDate.of(2022,Month.MAY, 15))
-        .egresso_id(retornoEgresso)
-        .build();
-        
+                .data(LocalDate.of(2022, Month.MAY, 15))
+                .egresso_id(retornoEgresso)
+                .build();
+
         // acao
         Depoimento retornoDepoimento = repoDepoimento.save(novoDepoimento);
 
         // verificacao
         Assertions.assertNotNull(retornoDepoimento);
-        
-        //Rollback
+
+        // Rollback
         repoDepoimento.delete(retornoDepoimento);
         repoEgresso.delete(retornoEgresso);
 
     }
 
     @Test
-    public void deveremoverDepoimento(){
-        //cenario
+    public void deveremoverDepoimento() {
+        // cenario
         Egresso novo = Egresso.builder().nome("EgressoDeDepoimento")
-        .email("email@email.com")
-        .cpf("000")
-        .resumo("resumo")
-        .url_foto("urlaqui")
-        .build();
+                .email("email@email.com")
+                .cpf("000")
+                .resumo("resumo")
+                .url_foto("urlaqui")
+                .build();
         Egresso retornoEgresso = repoEgresso.save(novo);
-        
+
         Depoimento novoDepoimento = Depoimento.builder().texto("texto")
-        .data(LocalDate.of(2022,Month.MAY, 15))
-        .egresso_id(retornoEgresso).build();
-        
-        
+                .data(LocalDate.of(2022, Month.MAY, 15))
+                .egresso_id(retornoEgresso).build();
+
         // acao
         Depoimento retornoDepoimento = repoDepoimento.save(novoDepoimento);
         Integer id = retornoDepoimento.getId_depoimento();
         repoDepoimento.deleteById(id);
         // verificacao
         Assertions.assertNotNull(retornoDepoimento);
-        
-        //Rollback
-        Optional<Depoimento> temp = repoDepoimento.findById(id);  
+
+        // Rollback
+        Optional<Depoimento> temp = repoDepoimento.findById(id);
         Assertions.assertFalse(temp.isPresent());
 
     }
 
-
     @Test
-    public void deveobterDepoimento(){
-        //cenario
+    public void deveBuscarDepoimento() {
+        // cenario
         Egresso novo = Egresso.builder().nome("EgressoDeDepoimento")
-        .email("email@email.com").cpf("000")
-        .resumo("resumo")
-        .url_foto("urlaqui").build();
+                .email("email@email.com").cpf("000")
+                .resumo("resumo")
+                .url_foto("urlaqui").build();
         Egresso retornoEgresso = repoEgresso.save(novo);
 
         Depoimento novoDepoimento = Depoimento.builder().texto("texto")
-        .data(LocalDate.of(2022,Month.MAY, 15))
-        .egresso_id(retornoEgresso).build();
+                .data(LocalDate.of(2022, Month.MAY, 15))
+                .egresso_id(retornoEgresso).build();
 
         Depoimento retornoDepoimento = repoDepoimento.save(novoDepoimento);
-        //Ação
+        // Ação
 
         Optional<Depoimento> temp = repoDepoimento.findById(retornoDepoimento.getId_depoimento());
-        
+
         Assertions.assertTrue(temp.isPresent());
 
-        //Rollback
+        // Rollback
         repoDepoimento.delete(retornoDepoimento);
         repoEgresso.delete(retornoEgresso);
 
-
     }
-    
+
 }

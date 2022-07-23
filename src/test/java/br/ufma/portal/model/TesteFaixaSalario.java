@@ -12,12 +12,11 @@ import br.ufma.portal.model.repository.FaixaSalarioRepo;
 @SpringBootTest
 public class TesteFaixaSalario {
     @Autowired
-    public
-    FaixaSalarioRepo repo;
+    public FaixaSalarioRepo repo;
 
     @Test
-    public void devecriaFaixaSalario(){
-        //cenario
+    public void devecriaFaixaSalario() {
+        // cenario
         FaixaSalario novo = FaixaSalario.builder().descricao("descricao").build();
 
         // acao
@@ -25,39 +24,39 @@ public class TesteFaixaSalario {
         // verificacao
         Assertions.assertNotNull(retorno);
         Assertions.assertEquals(novo.getDescricao(), retorno.getDescricao());
-        
-        //RollBack
+
+        // RollBack
         repo.delete(retorno);
     }
 
     @Test
-    public void deveremoverFaixaSalario(){
-        //cenario
+    public void deveremoverFaixaSalario() {
+        // cenario
         FaixaSalario novo = FaixaSalario.builder().descricao("descrição").build();
         FaixaSalario retorno = repo.save(novo);
 
-        //Ação
+        // Ação
         Integer id = retorno.getId_faixa_salario();
         repo.deleteById(id);
 
-        //Verificação
+        // Verificação
         Optional<FaixaSalario> temp = repo.findById(id);
         Assertions.assertFalse(temp.isPresent());
 
     }
 
     @Test
-    public void deveObterFaixaSalario(){
-        FaixaSalario novo = FaixaSalario.builder().descricao("descrição").build();  
+    public void deveBuscarFaixaSalario() {
+        FaixaSalario novo = FaixaSalario.builder().descricao("descrição").build();
         FaixaSalario retorno = repo.save(novo);
 
-        //Ação
+        // Ação
         Optional<FaixaSalario> temp = repo.findById(retorno.getId_faixa_salario());
 
         // verificacao
         Assertions.assertTrue(temp.isPresent());
 
-        //Rollback
+        // Rollback
         repo.delete(retorno);
 
     }

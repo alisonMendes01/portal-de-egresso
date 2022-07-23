@@ -48,9 +48,8 @@ public class EgressoController {
         }
     }
 
-    @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletar(@PathVariable(value = "id", required = true) Integer id) {
-        /* Criando o o Egresso para deletar */
+    @DeleteMapping("/remover/{id}")
+    public ResponseEntity remover(@PathVariable(value = "id", required = true) Integer id) {
         try {
             Egresso egresso = Egresso.builder()
                     .id_egresso(id)
@@ -62,9 +61,9 @@ public class EgressoController {
         }
     }
 
-    @GetMapping("/obter/{id}")
-    public ResponseEntity obter(
-        @PathVariable(value = "id", required = true) Integer id) {
+    @GetMapping("/buscar/{id}")
+    public ResponseEntity buscar(
+            @PathVariable(value = "id", required = true) Integer id) {
         Egresso filtro = Egresso.builder()
                 .id_egresso(id)
                 .build();
@@ -73,7 +72,7 @@ public class EgressoController {
         return ResponseEntity.ok(egresso);
     }
 
-    @PutMapping("/editar/{id}")
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity atualizar(
             @PathVariable("id") Integer id_cargo,
             @RequestBody EgressoDto dto) {
@@ -85,66 +84,66 @@ public class EgressoController {
                     .resumo(dto.getResumo())
                     .url_foto(dto.getUrl_foto())
                     .build();
-            Egresso salvo = service.editar(egresso);
+            Egresso salvo = service.atualizar(egresso);
             return ResponseEntity.ok(salvo);
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @PutMapping("/editar/contato/{id_egresso}&{id_contato}")
-    public ResponseEntity editarContato(
-        @PathVariable("id_egresso") Integer id_egresso,
-        @PathVariable("id_contato") Integer id_contato,
-        @RequestBody Contato contato)
-    {
-        try{
-            Contato contatoRetorno = service.editarEgressoContato(id_egresso, id_contato, contato);
+    @PutMapping("/atualizar/contato/{id_egresso}&{id_contato}")
+    public ResponseEntity atualizarContato(
+            @PathVariable("id_egresso") Integer id_egresso,
+            @PathVariable("id_contato") Integer id_contato,
+            @RequestBody Contato contato) {
+        try {
+            Contato contatoRetorno = service.atualizarEgressoContato(id_egresso, id_contato, contato);
             return ResponseEntity.ok(contatoRetorno);
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @PutMapping("/editar/cargo/{id_egresso}&{id_cargo}")
-    public ResponseEntity editarCargo(
-        @PathVariable("id_egresso") Integer id_egresso,
-        @PathVariable("id_cargo") Integer id_cargo,
-        @RequestBody Cargo cargo){
-        try{
-            Cargo cargoRetorno = service.editarEgressoCargo(id_egresso, id_cargo, cargo);
+    @PutMapping("/atualizar/cargo/{id_egresso}&{id_cargo}")
+    public ResponseEntity atualizarCargo(
+            @PathVariable("id_egresso") Integer id_egresso,
+            @PathVariable("id_cargo") Integer id_cargo,
+            @RequestBody Cargo cargo) {
+        try {
+            Cargo cargoRetorno = service.atualizarEgressoCargo(id_egresso, id_cargo, cargo);
             return ResponseEntity.ok(cargoRetorno);
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @PutMapping("/editar/faixasalario/{id_egresso}&{id_faixasalario}")
-    public ResponseEntity editarFaixaSalario(
-        @PathVariable("id_egresso") Integer id_egresso,
-        @PathVariable("id_faixasalario") Integer id_faixasalario,
-        @RequestBody FaixaSalario faixaSalario ){
-        
-         try{
-            FaixaSalario faixaSalarioRetorno = service.editarEgressoFaixaSalario(id_egresso, id_faixasalario, faixaSalario);
+    @PutMapping("/atualizar/faixasalario/{id_egresso}&{id_faixasalario}")
+    public ResponseEntity atualizarFaixaSalario(
+            @PathVariable("id_egresso") Integer id_egresso,
+            @PathVariable("id_faixasalario") Integer id_faixasalario,
+            @RequestBody FaixaSalario faixaSalario) {
+
+        try {
+            FaixaSalario faixaSalarioRetorno = service.atualizarEgressoFaixaSalario(id_egresso, id_faixasalario,
+                    faixaSalario);
             return ResponseEntity.ok(faixaSalarioRetorno);
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @PutMapping("/editar/curso/{id_egresso}&{id_curso}")
-    public ResponseEntity editarCurso(
-        @PathVariable("id_egresso") Integer id_egresso,
-        @PathVariable("id_curso") Integer id_curso,
-        @RequestBody Curso curso ){
-        
-         try{
-            Curso cursoRetorno = service.editarEgressoCurso(id_egresso, id_curso, curso);
+    @PutMapping("/atualizar/curso/{id_egresso}&{id_curso}")
+    public ResponseEntity atualizarCurso(
+            @PathVariable("id_egresso") Integer id_egresso,
+            @PathVariable("id_curso") Integer id_curso,
+            @RequestBody Curso curso) {
+
+        try {
+            Curso cursoRetorno = service.atualizarEgressoCurso(id_egresso, id_curso, curso);
             return ResponseEntity.ok(cursoRetorno);
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    
+
 }

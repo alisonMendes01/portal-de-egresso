@@ -27,7 +27,7 @@ public class DepoimentoService {
     public void verificaDepoimento(Depoimento depoimento) {
         if (depoimento == null)
             throw new RegraNegocioRunTime("O depoimento não pode ser nulo!");
-            
+
         if ((depoimento.getTexto() == null) || (depoimento.getTexto().equals("")))
             throw new RegraNegocioRunTime("Deve haver um texto");
 
@@ -53,33 +53,34 @@ public class DepoimentoService {
 
     @Transactional
     public List<Depoimento> buscar(Depoimento filtro) {
-        Example<Depoimento> example = 
-            Example.of(filtro, ExampleMatcher.matching()
+        Example<Depoimento> example = Example.of(filtro, ExampleMatcher.matching()
                 .withIgnoreCase()
-                .withStringMatcher(StringMatcher.CONTAINING)
-        );                     
+                .withStringMatcher(StringMatcher.CONTAINING));
         return repo.findAll(example);
     }
+
     @Transactional
-    public Depoimento editar(Depoimento depoimento) {
+    public Depoimento atualizar(Depoimento depoimento) {
         verificaId(depoimento);
         return salvar(depoimento);
     }
+
     @Transactional
     public void remover(Depoimento depoimento) {
         verificaId(depoimento);
         verificaDepoimento(depoimento);
         repo.delete(depoimento);
     }
-    
+
     @Transactional
     public Depoimento remover(Integer id) {
         Optional<Depoimento> depoimento = repo.findById(id);
         remover(depoimento.get());
         return depoimento.get();
     }
+
     @Transactional
-    public List<EgressoDepoimentoDto> buscarPorEgresso(Integer id){
-        return repo.obterDepoimentoPorEgresso(id);
+    public List<EgressoDepoimentoDto> buscarPorEgresso(Integer id) {
+        return repo.buscarDepoimentoPorEgresso(id);
     }
 }

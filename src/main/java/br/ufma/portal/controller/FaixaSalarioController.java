@@ -40,9 +40,8 @@ public class FaixaSalarioController {
         }
     }
 
-    @DeleteMapping("/deletar/{id}")
-    public ResponseEntity deletar(@PathVariable(value = "id", required = true) Integer id) {
-        /* Criando o o Egresso para deletar */
+    @DeleteMapping("/remover/{id}")
+    public ResponseEntity remover(@PathVariable(value = "id", required = true) Integer id) {
         try {
             service.remover(id);
             return ResponseEntity.ok(HttpStatus.NO_CONTENT);
@@ -51,9 +50,9 @@ public class FaixaSalarioController {
         }
     }
 
-    @GetMapping("/obter/{id}")
-    public ResponseEntity obter(
-        @PathVariable(value = "id", required = true) Integer id) {
+    @GetMapping("/buscar/{id}")
+    public ResponseEntity buscar(
+            @PathVariable(value = "id", required = true) Integer id) {
         FaixaSalario filtro = FaixaSalario.builder()
                 .id_faixa_salario(id)
                 .build();
@@ -62,28 +61,27 @@ public class FaixaSalarioController {
         return ResponseEntity.ok(faixaSalario);
     }
 
-    @PutMapping("/editar/{id}")
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity atualizar(
             @PathVariable("id") Integer id_cargo,
             @RequestBody FaixaSalarioDto dto) {
         try {
             FaixaSalario faixaSalario = FaixaSalario.builder()
-                .descricao(dto.getDescricao())
-                .build();
-            FaixaSalario salvo = service.editar(faixaSalario);
+                    .descricao(dto.getDescricao())
+                    .build();
+            FaixaSalario salvo = service.atualizar(faixaSalario);
             return ResponseEntity.ok(salvo);
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @GetMapping("/egressoporfaixasalario/{id}")
-    public ResponseEntity obterPorFaixaSalario(
-        @PathVariable("id") Integer id
-    ){
+    @GetMapping("/egresso-por-faixasalario/{id}")
+    public ResponseEntity buscarPorFaixaSalario(
+            @PathVariable("id") Integer id) {
 
-        try{
-            Integer i = service.countEgressosByFaixaSalario(id);
+        try {
+            Integer i = service.contarEgressosPorFaixaSalario(id);
             return ResponseEntity.ok(i);
         } catch (RegraNegocioRunTime e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -91,4 +89,3 @@ public class FaixaSalarioController {
     }
 
 }
-

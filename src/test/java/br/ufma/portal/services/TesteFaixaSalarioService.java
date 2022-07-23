@@ -39,7 +39,6 @@ public class TesteFaixaSalarioService {
     @Test
     public void deveSalvarFaixaSalario() {
 
-        // criar egresso com nome, email, cpf, resumo, url_foto
         Egresso novo = Egresso.builder().nome("Pedro")
                 .email("email@email.com")
                 .cpf("000")
@@ -67,8 +66,7 @@ public class TesteFaixaSalarioService {
     }
 
     @Test
-    public void deveDeletarFaixaSalario() {
-        // criar egresso com nome, email, cpf, resumo, url_foto
+    public void deveRemoverFaixaSalario() {
         Egresso novoEgresso = Egresso.builder().nome("Pedro")
                 .email("alsdknal")
                 .cpf("000")
@@ -95,7 +93,7 @@ public class TesteFaixaSalarioService {
     }
 
     @Test
-    public void deveObterNumeroEgressosByFaixaSalario() {
+    public void deveBuscarNumeroEgressosByFaixaSalario() {
         Egresso egresso1 = Egresso.builder()
                 .nome("Jose")
                 .email("teste@teste.com")
@@ -169,7 +167,7 @@ public class TesteFaixaSalarioService {
                 .build();
         ProfEgresso retornoProfEgresso3 = repoProfEgresso.save(profEgresso3);
 
-        Integer numeroEgressos = service.countEgressosByFaixaSalario(faixaSalario.getId_faixa_salario());
+        Integer numeroEgressos = service.contarEgressosPorFaixaSalario(faixaSalario.getId_faixa_salario());
         System.out.println("NUMERO DE EGRESSOS POR FAIXA: " + numeroEgressos);
         
         repoProfEgresso.delete(retornoProfEgresso1);

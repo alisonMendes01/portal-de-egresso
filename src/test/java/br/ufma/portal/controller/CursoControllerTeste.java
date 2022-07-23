@@ -67,7 +67,7 @@ public class CursoControllerTeste {
     }
 
     @Test
-    public void deveDeletarCurso() throws Exception {
+    public void deveRemoverCurso() throws Exception {
         // cenario
         Curso curso = Curso.builder()
                 .nome("Java")
@@ -77,11 +77,11 @@ public class CursoControllerTeste {
         // mock salvar
         Mockito.when(service.salvar(Mockito.any(Curso.class))).thenReturn(curso);
 
-        // mock deletar
+        // mock remover
         Mockito.when(service.remover(Mockito.anyInt())).thenReturn(curso);
 
         // acao
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.delete(API.concat("/deletar/1"))
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.delete(API.concat("/remover/1"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -92,18 +92,18 @@ public class CursoControllerTeste {
     }
 
     @Test
-    public void deveObterCurso() throws Exception {
+    public void deveBuscarCurso() throws Exception {
         // cenario
         List<Curso> cursos = new ArrayList<>();
         cursos.add(Curso.builder().build());
         cursos.add(Curso.builder().build());
         cursos.add(Curso.builder().build());
 
-        // mock obter
+        // mock buscar
         Mockito.when(service.buscar(Mockito.any(Curso.class))).thenReturn(cursos);
 
         // acao
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(API.concat("/obter/1"))
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(API.concat("/buscar/1"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -125,13 +125,13 @@ public class CursoControllerTeste {
         Mockito.when(service.salvar(Mockito.any(Curso.class))).thenReturn(Curso.builder().build());
 
         // mock atualizar
-        Mockito.when(service.editar(Mockito.any(Curso.class))).thenReturn(Curso.builder().build());
+        Mockito.when(service.atualizar(Mockito.any(Curso.class))).thenReturn(Curso.builder().build());
 
         // converter dto para json
         String json = new ObjectMapper().writeValueAsString(dto);
 
         // acao
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put(API.concat("/editar/1"))
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put(API.concat("/atualizar/1"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
@@ -143,18 +143,18 @@ public class CursoControllerTeste {
     }
 
     @Test
-    public void deveObterCursoPorEgresso() throws Exception {
+    public void deveBuscarCursoPorEgresso() throws Exception {
         // cenario
         List<Curso> cursos = new ArrayList<>();
         cursos.add(Curso.builder().build());
         cursos.add(Curso.builder().build());
         cursos.add(Curso.builder().build());
 
-        // mock obter por egresso (mock int) e retornar lista de egresso
-        Mockito.when(service.findByEgresso(Mockito.anyInt())).thenReturn(List.of(Egresso.builder().build()));
+        // mock buscar por egresso
+        Mockito.when(service.buscarPorEgresso(Mockito.anyInt())).thenReturn(List.of(Egresso.builder().build()));
 
         // acao
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(API.concat("/obter-por-egresso/1"))
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(API.concat("/buscar-por-egresso/1"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -172,9 +172,9 @@ public class CursoControllerTeste {
         cursos.add(Curso.builder().build());
         cursos.add(Curso.builder().build());
         // mock contar
-        Mockito.when(service.countEgressosByCurso(Mockito.anyInt())).thenReturn(1);
+        Mockito.when(service.contarEgressosPorCurso(Mockito.anyInt())).thenReturn(1);
         // acao
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(API.concat("/contar-por-egresso/1"))
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(API.concat("/contar-egressos-por-curso/1"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 

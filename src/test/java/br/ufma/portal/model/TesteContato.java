@@ -12,12 +12,11 @@ import br.ufma.portal.model.repository.ContatoRepo;
 @SpringBootTest
 public class TesteContato {
     @Autowired
-    public
-    ContatoRepo repo;
+    public ContatoRepo repo;
 
     @Test
-    public void devecriaContato(){
-        //cenario
+    public void devecriaContato() {
+        // cenario
         Contato novo = Contato.builder().nome("CriarContato").url_logo("urlaqui").build();
 
         // acao
@@ -25,31 +24,31 @@ public class TesteContato {
         // verificacao
         Assertions.assertNotNull(retorno);
         Assertions.assertEquals(novo.getNome(), retorno.getNome());
-        
-        //Rollback
+
+        // Rollback
         repo.delete(retorno);
     }
-    
+
     @Test
-    public void deveremoverContato(){
-        //cenario
+    public void deveRemoverContato() {
+        // cenario
         Contato novo = Contato.builder().nome("RemoverContato").url_logo("urlaqui").build();
         Contato retorno = repo.save(novo);
-        
+
         // acao
         Integer id = retorno.getId_contato();
         repo.deleteById(id);
-        
-        //verificação
-        Optional<Contato> temp = repo.findById(id);  
+
+        // verificação
+        Optional<Contato> temp = repo.findById(id);
         Assertions.assertFalse(temp.isPresent());
 
     }
-    
+
     @Test
-    public void deveobterContato(){
-        //cenario
-        Contato novo = Contato.builder().nome("ObterCOntato").url_logo("urlaqui").build();
+    public void deveBuscarContato() {
+        // cenario
+        Contato novo = Contato.builder().nome("BuscarCOntato").url_logo("urlaqui").build();
         Contato retorno = repo.save(novo);
 
         // acao
@@ -58,7 +57,7 @@ public class TesteContato {
 
         Assertions.assertTrue(temp.isPresent());
 
-        //Rollback
+        // Rollback
         repo.delete(retorno);
 
     }

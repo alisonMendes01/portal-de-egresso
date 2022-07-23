@@ -44,7 +44,7 @@ public class CargoService {
     }
 
     @Transactional
-    public Cargo editar(Cargo cargo) {
+    public Cargo atualizar(Cargo cargo) {
         verificaId(cargo);
         return salvar(cargo);
     }
@@ -71,13 +71,13 @@ public class CargoService {
     }
 
     @Transactional
-    public List<Cargo> findByEgresso(Integer id_egresso){
-        return repo.findByEgresso(id_egresso);
+    public List<Cargo> buscarPorEgresso(Integer id_egresso) {
+        return repo.buscarPorEgresso(id_egresso);
     }
 
     @Transactional
-    public Integer countEgressosByCargo(Integer cargo){
-        return repo.countEgressosByCargo(cargo);
+    public Integer contarEgressosPorCargo(Integer cargo) {
+        return repo.contarEgressosPorCargo(cargo);
     }
 
 }

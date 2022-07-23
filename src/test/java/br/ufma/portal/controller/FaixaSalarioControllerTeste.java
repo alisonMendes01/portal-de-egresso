@@ -66,7 +66,7 @@ public class FaixaSalarioControllerTeste {
     }
 
     @Test
-    public void deveDeletarFaixaSalario() throws Exception {
+    public void deveRemoverFaixaSalario() throws Exception {
         // cenario
         FaixaSalario faixaSalario = FaixaSalario.builder()
                 .id_faixa_salario(1)
@@ -74,11 +74,11 @@ public class FaixaSalarioControllerTeste {
                 .build();
         // mock salvar
         Mockito.when(service.salvar(Mockito.any(FaixaSalario.class))).thenReturn(faixaSalario);
-        // mock deletar
+        // mock remover
         Mockito.when(service.remover(Mockito.anyInt())).thenReturn(faixaSalario);
         // ação
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .delete(API.concat("/deletar/1"))
+                .delete(API.concat("/remover/1"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -89,19 +89,19 @@ public class FaixaSalarioControllerTeste {
     }
 
     @Test
-    public void deveObterFaixaSalario() throws Exception {
+    public void deveBuscarFaixaSalario() throws Exception {
         // cenario
         List<FaixaSalario> faixaSalario = new ArrayList<>();
         faixaSalario.add(FaixaSalario.builder()
         .id_faixa_salario(1)
         .descricao("Faixa de salario de teste")
         .build());
-        // mock obter
+        // mock buscar
         Mockito.when(service.buscar(Mockito.any(FaixaSalario.class))).thenReturn(faixaSalario);
 
         // ação
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .get(API.concat("/obter/1"))
+                .get(API.concat("/buscar/1"))
                 .accept(MediaType.APPLICATION_JSON);
         // ação e verificação
         mvc.perform(request)
@@ -119,13 +119,13 @@ public class FaixaSalarioControllerTeste {
         Mockito.when(service.salvar(Mockito.any(FaixaSalario.class))).thenReturn(FaixaSalario.builder().build());
 
         // mock atualizar
-        Mockito.when(service.editar(Mockito.any(FaixaSalario.class))).thenReturn(FaixaSalario.builder().build());
+        Mockito.when(service.atualizar(Mockito.any(FaixaSalario.class))).thenReturn(FaixaSalario.builder().build());
 
         // converte o dto para json
         String json = new ObjectMapper().writeValueAsString(dto);
         // ação
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .put(API.concat("/editar/1"))
+                .put(API.concat("/atualizar/1"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
@@ -135,18 +135,17 @@ public class FaixaSalarioControllerTeste {
     }
     
     @Test
-    public void deveObterEgressoPorFaixaSalario() throws Exception {
-        // testa o método countEgressosByFaixaSalario
+    public void deveBuscarEgressoPorFaixaSalario() throws Exception {
         // cenario
         List<FaixaSalario> faixaSalario = new ArrayList<>();
         faixaSalario.add(FaixaSalario.builder().build());
         faixaSalario.add(FaixaSalario.builder().build());
-        // mock obter
-        Mockito.when(service.countEgressosByFaixaSalario(Mockito.anyInt())).thenReturn(Mockito.anyInt());
+        // mock buscar
+        Mockito.when(service.contarEgressosPorFaixaSalario(Mockito.anyInt())).thenReturn(Mockito.anyInt());
 
         // ação
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .get(API.concat("/egressoporfaixasalario/1"))
+                .get(API.concat("/egresso-por-faixasalario/1"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
         // ação e verificação

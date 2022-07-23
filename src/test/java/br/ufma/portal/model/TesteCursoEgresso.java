@@ -78,10 +78,10 @@ public class TesteCursoEgresso {
 
 
     @Test
-    public void deveobterCursoEgresso(){
+    public void deveBuscarCursoEgresso(){
         //cenario
         //Cria Curso
-        Curso novoCurso = Curso.builder().nome("ObterCurso").nivel("avançado").build();
+        Curso novoCurso = Curso.builder().nome("BuscarCurso").nivel("avançado").build();
         Curso retornoCurso = repoCurso.save(novoCurso);
         //Cria Egresso
         Egresso novoEgresso = Egresso.builder().nome("EgressoDeCursoEgresso").email("email@email.com").cpf("000").resumo("resumo").url_foto("urlaqui").build();

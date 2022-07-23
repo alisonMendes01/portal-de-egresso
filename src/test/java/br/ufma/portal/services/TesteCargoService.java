@@ -37,7 +37,7 @@ public class TesteCargoService {
         CargoService service;
 
         @Test
-        public void deveObterCargoPorEgresso() {
+        public void deveBuscarCargoPorEgresso() {
 
                 Egresso novo = Egresso.builder()
                                 .nome("João")
@@ -85,7 +85,7 @@ public class TesteCargoService {
                                 .build();
                 ProfEgresso retornoProfEgresso2 = repoProfEgresso.save(novoProfEgresso2);
 
-                List<Cargo> cargos = service.findByEgresso(retornoEgresso.getId_egresso());
+                List<Cargo> cargos = service.buscarPorEgresso(retornoEgresso.getId_egresso());
                 int index = 1;
                 for (Cargo cargo : cargos) {
                         System.out.println("CARGO " + (index++) + ": " + cargo.getNome());
@@ -101,7 +101,7 @@ public class TesteCargoService {
         }
 
         @Test
-        public void deveObterNumeroEgressosByCargo() {
+        public void deveBuscarNumeroEgressosByCargo() {
 
                 Egresso egresso1 = Egresso.builder()
                                 .nome("Jose")
@@ -171,8 +171,8 @@ public class TesteCargoService {
                                 .build();
                 ProfEgresso retornoProfEgresso3 = repoProfEgresso.save(profEgresso3);
 
-                Integer numeroEgressos = service.countEgressosByCargo(cargo.getId_cargo());
-                System.out.println("NUMERO DE EGRESSOS NO CARGO: "+ numeroEgressos);
+                Integer numeroEgressos = service.contarEgressosPorCargo(cargo.getId_cargo());
+                System.out.println("NUMERO DE EGRESSOS NO CARGO: " + numeroEgressos);
 
                 repoProfEgresso.delete(retornoProfEgresso1);
                 repoProfEgresso.delete(retornoProfEgresso2);
